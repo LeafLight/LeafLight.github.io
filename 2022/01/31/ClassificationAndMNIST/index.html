@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Classification and MNIST datasetAbout the input:It is a famous dataset of Human-writed number pictures used for deep learning.  size of one picture: 28x28(pixels) quantity: 7000 per Number(0~9) (7kx10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/01/31/ClassificationAndMNIST/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Classification and MNIST datasetAbout the input:It is a famous dataset of Human-writed number pictures used for deep learning.  size of one picture: 28x28(pixels) quantity: 7000 per Number(0~9) (7kx10">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/1200/1*a04iKNbchayCAJ7-0QlesA.png&imgrefurl=https://medium.com/@toprak.mhmt/activation-functions-for-deep-learning-13d8b9b20e&tbnid=Zl9O5xKIlo6tvM&vet=12ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ..i&docid=HgiWI3njmHtosM&w=1200&h=630&itg=1&q=Sigmoid%20function&hl=en-US&client=ubuntu&ved=2ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ">
+<meta property="og:image" content="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/357/1*oePAhrm74RNnNEolprmTaQ.png&imgrefurl=https://medium.com/@kanchansarkar/relu-not-a-differentiable-function-why-used-in-gradient-based-optimization-7fef3a4cecec&tbnid=0UdUiZ4X2VLDiM&vet=12ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ..i&docid=8NiVbpcoDLL_LM&w=357&h=278&itg=1&q=ReLU%20function&hl=en-US&client=ubuntu&ved=2ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ">
+<meta property="article:published_time" content="2022-01-30T16:13:19.564Z">
+<meta property="article:modified_time" content="2022-01-30T16:13:19.568Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/1200/1*a04iKNbchayCAJ7-0QlesA.png&imgrefurl=https://medium.com/@toprak.mhmt/activation-functions-for-deep-learning-13d8b9b20e&tbnid=Zl9O5xKIlo6tvM&vet=12ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ..i&docid=HgiWI3njmHtosM&w=1200&h=630&itg=1&q=Sigmoid%20function&hl=en-US&client=ubuntu&ved=2ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ClassificationAndMNIST" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/01/31/ClassificationAndMNIST/" class="article-date">
+  <time datetime="2022-01-30T16:13:19.564Z" itemprop="datePublished">2022-01-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Classification-and-MNIST-dataset"><a href="#Classification-and-MNIST-dataset" class="headerlink" title="Classification and MNIST dataset"></a>Classification and MNIST dataset</h1><h2 id="About-the-input"><a href="#About-the-input" class="headerlink" title="About the input:"></a>About the input:</h2><p>It is a famous dataset of Human-writed number pictures used for deep learning.</p>
+<ul>
+<li>size of one picture: 28x28(pixels)</li>
+<li>quantity: 7000 per Number(0~9) (7kx10)</li>
+</ul>
+<h2 id="About-the-output"><a href="#About-the-output" class="headerlink" title="About the output:"></a>About the output:</h2><p>If we simply use 0<del>9 to represent the result of prediction of our model, it results in a problem that 0</del>9 are quantitive variables. To avoid it, Here is a new method called <strong>One-Hot</strong>, which is useful in classification.</p>
+<h3 id="One-Hot"><a href="#One-Hot" class="headerlink" title="One-Hot"></a>One-Hot</h3><h4 id="Representation"><a href="#Representation" class="headerlink" title="Representation"></a>Representation</h4><p>It is an special encoding method, which use a matrix(usually has an dimension of 1xn) to represent a categorical variable.</p>
+<p>Here comes an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">red = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">blue = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">yellow = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#So we can use [1,0,0,0,0,0,0,0,0,0] to represent &#x27;0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Evaluation-loss-calculation"><a href="#Evaluation-loss-calculation" class="headerlink" title="Evaluation(loss calculation)"></a>Evaluation(<em>loss</em> calculation)</h4><p>As to calculate the <em>loss</em> of the model, <em>Euclidean distance</em> is used(because the result of One-Hot Matrix in this model has a dimension of 10x1, which means <em>Euclidean distance</em> is proper).</p>
+<p><em>here remains a question– why Euclidean distance is not proper for all kinds of data</em></p>
+<p>Here comes an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Real_label = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">Pred = [<span class="number">0.9</span>, <span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.1</span>]</span><br><span class="line">loss =<span class="built_in">sum</span>([<span class="built_in">pow</span>(Real_label[i]-Pred[i],<span class="number">2</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">4</span>)]) </span><br></pre></td></tr></table></figure>
+
+<h2 id="About-the-model"><a href="#About-the-model" class="headerlink" title="About the model:"></a>About the model:</h2><h3 id="Sigmoid-function-and-ReLU-function"><a href="#Sigmoid-function-and-ReLU-function" class="headerlink" title="Sigmoid function and ReLU function:"></a>Sigmoid function and ReLU function:</h3><ul>
+<li>Sigmoid function:<br><img src="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/1200/1*a04iKNbchayCAJ7-0QlesA.png&imgrefurl=https://medium.com/@toprak.mhmt/activation-functions-for-deep-learning-13d8b9b20e&tbnid=Zl9O5xKIlo6tvM&vet=12ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ..i&docid=HgiWI3njmHtosM&w=1200&h=630&itg=1&q=Sigmoid%20function&hl=en-US&client=ubuntu&ved=2ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ" alt="Sigmoid function"></li>
+</ul>
+<p>$$ h_ \theta (x) =  \frac{\mathrm{1} }{\mathrm{1} + e^- \theta^Tx }  $$</p>
+<ul>
+<li>ReLU function:<br><img src="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/357/1*oePAhrm74RNnNEolprmTaQ.png&imgrefurl=https://medium.com/@kanchansarkar/relu-not-a-differentiable-function-why-used-in-gradient-based-optimization-7fef3a4cecec&tbnid=0UdUiZ4X2VLDiM&vet=12ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ..i&docid=8NiVbpcoDLL_LM&w=357&h=278&itg=1&q=ReLU%20function&hl=en-US&client=ubuntu&ved=2ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ" alt="ReLU function"></li>
+</ul>
+<p>$$ R(x) = max(0,x) $$</p>
+<p><em>Why they are special: We don’t use linear function because linear factor is not vey qualified to deal with complex REAL-WORLD problem(Though recognizing a hand-writing number is easy for us human beings, it is difficult to teach the machine this technique.). Sigmoid F and ReLU F have a better simulation of the nerves of human beings, which have thresholds.</em> </p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><ul>
+<li><p>$$ Objective = \sum (pred - Y) $$</p>
+</li>
+<li><p>minimize objective </p>
+</li>
+<li><p>for a new $$X$$</p>
+<ul>
+<li><p>$$[W_1,W_2,W_3]$$</p>
+</li>
+<li><p>$$[b_1,b_2,b_3]$$</p>
+</li>
+<li><p>$$pred = W_3 * \left{ W_2 \left[ W_1X + b_1\right] +b_2\right} + b_3$$</p>
+</li>
+<li><p>$$argmax(pred)$$</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/31/ClassificationAndMNIST/" data-id="ckz1haofv000028e22n3803n7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/01/31/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/01/31/ClassificationAndMNIST/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/31/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/14/hello-hexo/">hello hexo</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/14/test/">test</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
