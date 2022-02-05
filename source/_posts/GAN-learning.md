@@ -1,7 +1,7 @@
 ---
 title: GAN_learning(PLAN)
 date: 2022-01-14 14:47:22
-tags: "structure learning" "mechine learning" "PLAN"
+tags: ["structure learning", "mechine learning", "PLAN"]
 ---
 
 # What is GAN?
