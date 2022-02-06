@@ -1,4 +1,7 @@
-# Classification and MNIST dataset
+---
+title: Classification and MNIST dataset
+tags: ["Note", "Source Code", "Neural Network"]
+---
 
 ## About the input:
 
