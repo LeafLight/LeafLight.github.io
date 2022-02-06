@@ -68,3 +68,160 @@ _Why they are special: We don't use linear function because linear factor is not
 	* $$pred = W_3 * \left{ W_2 \left[ W_1X + b_1\right] +b_2\right} + b_3$$
 
 	* $$argmax(pred)$$
+
+### Code
+
+MNIST_utils.py 
+```python
+import torch
+from matplotlib import pyplot as plt
+
+def plot_curve(data):
+    fig = plt.figure()
+    plt.plot(range(len(data)), data, color='blue')
+    plt.legend(['value'], loc='upper right')
+    plt.xlabel('step')
+    plt.ylabel('value')
+    plt.show()
+
+def plot_image(img, label, name, num=(4,4), dataset_MU=0.1307, dataset_SIG=0.3081):
+    fig = plt.figure()
+    for i in range(0, num[0]*num[1]):
+        plt.subplot(num[0], num[1], i+1)
+        plt.tight_layout()
+        plt.imshow(img[i][0]*dataset_SIG+dataset_MU, cmap='gray', interpolation='none')
+        plt.title("{}:{}".format(name, label[i].item()))
+        plt.xticks([])
+        plt.yticks([])
+    plt.show()
+
+def one_hot(label, depth=10):
+    out = torch.zeros(label.size(0), depth)
+    idx = torch.LongTensor(label).view(-1,1)
+    out.scatter_(dim=1, index=idx, value=1)
+    return out
+```
+
+MNIST_train.py
+```python
+import torch
+from torch import nn
+from torch.nn import functional as F
+from torch import optim
+import torchvision
+from matplotlib import pyplot as plt
+
+from MNIST_utils import plot_image, plot_curve, one_hot
+
+batch_size = 512
+dataset_MU = 0.1307
+dataset_SIG = 0.3081
+
+# step1. load dataset
+train_loader = torch.utils.data.DataLoader(
+        torchvision.datasets.MNIST('mnist.data', train=True, download=True,
+                                    transform=torchvision.transforms.Compose([
+                                        torchvision.transforms.ToTensor(),
+                                        torchvision.transforms.Normalize(
+                                            (dataset_MU,),(dataset_SIG,))
+                                        ])
+        ),
+        batch_size=batch_size, shuffle=True)
+
+test_loader = torch.utils.data.DataLoader(
+        torchvision.datasets.MNIST('mnist.data/', train=False, download=True,
+                                    transform=torchvision.transforms.Compose([
+                                        torchvision.transforms.ToTensor(),
+                                        torchvision.transforms.Normalize(
+                                            (dataset_MU,),(dataset_SIG,))
+                                        
+                                        ])
+        ),
+    batch_size=batch_size, shuffle=False)
+
+sample_x, sample_y = next(iter(train_loader))
+print(sample_x.shape, sample_y.shape)
+#Output[0]:torch.Size([512, 1, 28, 28]) torch.Size([512])
+plot_image(sample_x,sample_y,'image sample',num=(5,5))
+#plot_image() is the function imported from MNIST_utils.py
+#Output[1]:some hand-writing numbers' pictures(default 10)
+
+# step2. Network model building
+class Net(nn.Module):
+    def __init__(self):
+        super(Net,self).__init__()
+
+        # wx+b
+        self.fc1 = nn.Linear(28*28, 256)
+        # 28*28: the pixel size of one picture in the dataset
+        # 256: hyper para.
+        self.fc2 = nn.Linear(256, 64)
+        # 256: the size of output of the prior layer
+        # 64: hyper para.
+        self.fc3 = nn.Linear(64,10)
+        # 64: the size of output of the prior layer
+        # 10: the size of final output
+    def forward(self, x):
+        #x: [b, 1, 28, 28]
+        #h1 = relu(w1x+b1)
+        x = F.relu(self.fc1(x))
+        #h2 = relu(w2h1+b2)
+        x = F.relu(self.fc2(x))
+        #h3 = (w3h2+b3)
+        x = self.fc3(x)
+
+        return x
+#initialize the network
+net = Net()
+#[w1, w2, w3, b1, b2, b3]
+optimizer = optim.SGD(net.parameters(), lr=0.01, momentum=0.9 )
+#para. used to plot the loss_step plot
+train_loss = []
+# step3. Training
+for epoch in range(3):
+    #3 times of traversal of the train set
+    for batch_idx, (x, y) in enumerate(train_loader):
+        #print(x.shape, y.shape)
+        #Output[2]: x:[b, 1, 28, 28], y:[512]
+        # [b, 1, 28, 28] => [b, feature]
+        x = x.view(x.size(0), 28*28)
+        # =>[b, 10]
+        out = net(x)
+        # [b, 10]
+        y_onehot = one_hot(y)
+        # loss = mse(out, y_onehot)
+        loss = F.mse_loss(out, y_onehot)
+        # clean the gradient
+        optimizer.zero_grad()
+        # calculate the gradient
+        loss.backward()
+        # update the gradient
+        #w' = w- lr*grad
+        optimizer.step()
+        #para. 'loss' is a tensor object, use .item() to convert it to numpy object
+        train_loss.append(loss.item())
+        if batch_idx % 10 == 0:
+            print(epoch, batch_idx, loss.item())
+# we get the optimal [w1, b1, w2, b2, w3, b3]
+plot_curve(train_loss)
+
+# step4. test
+total_correct = 0
+for x,y in test_loader:
+    x = x.view(x.size(0), 28*28)
+    out = net(x)
+    #out: [b, 10] => pred: [b]
+    pred = out.argmax(dim=1)
+    correct = pred.eq(y).sum().float()
+    total_correct += correct
+
+total_num = len(test_loader.dataset)
+acc = total_correct / total_num
+print('test acc:', acc)
+
+x, y = next(iter(test_loader))
+out = net(x.view(x.size(0),28*28))
+pred = out.argmax(dim=1)
+plot_image(x, pred, 'test')
+
+```
