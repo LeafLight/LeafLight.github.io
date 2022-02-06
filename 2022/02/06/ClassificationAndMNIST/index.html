@@ -5,20 +5,23 @@
   
 
   
-  <title>LeafLight&#39;s Blog by Hexo</title>
+  <title>Classification and MNIST dataset | LeafLight&#39;s Blog by Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Classification and MNIST datasetAbout the input:It is a famous dataset of Human-writed number pictures used for deep learning.  size of one picture: 28x28(pixels) quantity: 7000 per Number(0~9) (7kx10">
+  <meta name="description" content="About the input:It is a famous dataset of Human-writed number pictures used for deep learning.  size of one picture: 28x28(pixels) quantity: 7000 per Number(0~9) (7kx10)  About the output:If we simply">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:title" content="Classification and MNIST dataset">
 <meta property="og:url" content="http://example.com/2022/02/06/ClassificationAndMNIST/index.html">
 <meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
-<meta property="og:description" content="Classification and MNIST datasetAbout the input:It is a famous dataset of Human-writed number pictures used for deep learning.  size of one picture: 28x28(pixels) quantity: 7000 per Number(0~9) (7kx10">
+<meta property="og:description" content="About the input:It is a famous dataset of Human-writed number pictures used for deep learning.  size of one picture: 28x28(pixels) quantity: 7000 per Number(0~9) (7kx10)  About the output:If we simply">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/1200/1*a04iKNbchayCAJ7-0QlesA.png&imgrefurl=https://medium.com/@toprak.mhmt/activation-functions-for-deep-learning-13d8b9b20e&tbnid=Zl9O5xKIlo6tvM&vet=12ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ..i&docid=HgiWI3njmHtosM&w=1200&h=630&itg=1&q=Sigmoid%20function&hl=en-US&client=ubuntu&ved=2ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ">
 <meta property="og:image" content="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/357/1*oePAhrm74RNnNEolprmTaQ.png&imgrefurl=https://medium.com/@kanchansarkar/relu-not-a-differentiable-function-why-used-in-gradient-based-optimization-7fef3a4cecec&tbnid=0UdUiZ4X2VLDiM&vet=12ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ..i&docid=8NiVbpcoDLL_LM&w=357&h=278&itg=1&q=ReLU%20function&hl=en-US&client=ubuntu&ved=2ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ">
-<meta property="article:published_time" content="2022-02-06T09:52:28.450Z">
-<meta property="article:modified_time" content="2022-02-06T09:52:28.450Z">
+<meta property="article:published_time" content="2022-02-06T12:31:15.637Z">
+<meta property="article:modified_time" content="2022-02-06T12:31:15.637Z">
 <meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="Source Code">
+<meta property="article:tag" content="Neural Network">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/1200/1*a04iKNbchayCAJ7-0QlesA.png&imgrefurl=https://medium.com/@toprak.mhmt/activation-functions-for-deep-learning-13d8b9b20e&tbnid=Zl9O5xKIlo6tvM&vet=12ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ..i&docid=HgiWI3njmHtosM&w=1200&h=630&itg=1&q=Sigmoid%20function&hl=en-US&client=ubuntu&ved=2ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ">
   
@@ -72,16 +75,26 @@
         <section id="main"><article id="post-ClassificationAndMNIST" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/02/06/ClassificationAndMNIST/" class="article-date">
-  <time datetime="2022-02-06T09:52:28.450Z" itemprop="datePublished">2022-02-06</time>
+  <time datetime="2022-02-06T12:31:15.637Z" itemprop="datePublished">2022-02-06</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Classification and MNIST dataset
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Classification-and-MNIST-dataset"><a href="#Classification-and-MNIST-dataset" class="headerlink" title="Classification and MNIST dataset"></a>Classification and MNIST dataset</h1><h2 id="About-the-input"><a href="#About-the-input" class="headerlink" title="About the input:"></a>About the input:</h2><p>It is a famous dataset of Human-writed number pictures used for deep learning.</p>
+        <h2 id="About-the-input"><a href="#About-the-input" class="headerlink" title="About the input:"></a>About the input:</h2><p>It is a famous dataset of Human-writed number pictures used for deep learning.</p>
 <ul>
 <li>size of one picture: 28x28(pixels)</li>
 <li>quantity: 7000 per Number(0~9) (7kx10)</li>
@@ -135,6 +148,8 @@
       <a data-url="http://example.com/2022/02/06/ClassificationAndMNIST/" data-id="ckz1haofv000028e22n3803n7" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li></ul>
+
     </footer>
   </div>
   
@@ -163,7 +178,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mechine-learning/" rel="tag">mechine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mechine-learning/" rel="tag">mechine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li></ul>
     </div>
   </div>
 
@@ -173,7 +188,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/mechine-learning/" style="font-size: 10px;">mechine learning</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a>
+      <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 10px;">Note</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/mechine-learning/" style="font-size: 10px;">mechine learning</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a>
     </div>
   </div>
 
@@ -195,7 +210,7 @@
       <ul>
         
           <li>
-            <a href="/2022/02/06/ClassificationAndMNIST/">(no title)</a>
+            <a href="/2022/02/06/ClassificationAndMNIST/">Classification and MNIST dataset</a>
           </li>
         
           <li>
