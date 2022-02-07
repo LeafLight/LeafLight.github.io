@@ -1,7 +1,7 @@
 ---
 title: sharement of paremeters between shell scripts
 date: 2022-02-07 13:51:05
-tags:["linux","study note"]
+tags: ["linux","study note"]
 ---
 
 # Problem 
