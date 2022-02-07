@@ -3,6 +3,7 @@ title: sharement of paremeters between shell scripts
 date: 2022-02-07 13:51:05
 tags:["linux","study note"]
 ---
+
 # Problem 
 Today some problem occurs when I want to write a shell script that helps me `cd` to some deep directories which are long enough for me, a lazy man, to write a script. I found that `cd` does't work in a `.sh` file when I use `bash` to execute it. Then I learned that a child shell is created to execute the commands in the scripts when using `bash`. To solve this problem, the most fundmental way is to use `source`, which won't create a child shell.
 
