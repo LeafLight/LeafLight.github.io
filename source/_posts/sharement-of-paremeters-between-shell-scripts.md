@@ -21,7 +21,7 @@ There are three kinds of variable in shell scripts:
 * global variable: default, scope: the shell(not including child shells) 
 * environment variable: defined by `export` command, scope: the shell(including child shells)
 
-(from[ningyuwhut's blog](https://www.ningyuwhut.github.io/cn/2019/06/share-shell-variable-between-scripts))
+( from[ningyuwhut's blog](https://ningyuwhut.github.io/cn/2019/06/share-shell-variable-between-scripts))
 
 Figuring out these three kinds of variable helps a lot in solving the probelms above.
 # Example
