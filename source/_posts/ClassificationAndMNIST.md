@@ -1,6 +1,7 @@
 ---
 title: Classification and MNIST dataset
 tags: ["Note", "Source Code", "Neural Network"]
+categories: MachineLearning
 ---
 
 ## About the input:
