@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-sharement-of-paremeters-between-shell-scripts" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-HimmelblauOptimization_Practice_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/" class="article-date">
-  <time datetime="2022-02-07T05:51:05.000Z" itemprop="datePublished">2022-02-07</time>
+    <a href="/2022/02/20/HimmelblauOptimization_Practice_WorkFlow/" class="article-date">
+  <time datetime="2022-02-20T13:51:13.421Z" itemprop="datePublished">2022-02-20</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/">sharement of paremeters between shell scripts</a>
+      <a class="article-title" href="/2022/02/20/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
     </h1>
   
 
@@ -86,36 +86,96 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>Today some problem occurs when I want to write a shell script that helps me <code>cd</code> to some deep directories which are long enough for me, a lazy man, to write a script. I found that <code>cd</code> does’t work in a <code>.sh</code> file when I use <code>bash</code> to execute it. Then I learned that a child shell is created to execute the commands in the scripts when using <code>bash</code>. To solve this problem, the most fundmental way is to use <code>source</code>, which won’t create a child shell.</p>
-<p>After solving it, I wondered that how does two shell scripts share their parameters when one script will create a child shell in another’s child shell, which means that you can’t just use <code>bash config.sh</code> to tell the parent shell what the paraments in the <code>config.sh</code> are, and using <code>source config.sh</code> won’t tell the parent shell’s another child shell(e.g. step1.sh) what the paraments are.(like stucture below) </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#in the `parent.sh`</span></span><br><span class="line"><span class="built_in">source</span> config.sh</span><br><span class="line"></span><br><span class="line">bash step1.sh</span><br><span class="line"><span class="comment">#`step1.sh` won&#x27;t get the parameters in the `copnfig.sh`</span></span><br></pre></td></tr></table></figure>
-<h1 id="Solvement"><a href="#Solvement" class="headerlink" title="Solvement"></a>Solvement</h1><p>There are three kinds of variable in shell scripts:</p>
-<ul>
-<li>local variable: difined by <code>local</code> statement, scope: the function in which it is defined</li>
-<li>global variable: default, scope: the shell(not including child shells) </li>
-<li>environment variable: defined by <code>export</code> command, scope: the shell(including child shells)</li>
-</ul>
-<p>( from<a target="_blank" rel="noopener" href="https://ningyuwhut.github.io/cn/2019/06/share-shell-variable-between-scripts">ningyuwhut’s blog</a>)</p>
-<p>Figuring out these three kinds of variable helps a lot in solving the probelms above.</p>
-<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>I used three shell scripts to show it.</p>
-<ol>
-<li>child_globalconfig.sh<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is child_globalconfig.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line">srcp=<span class="string">&quot;successful&quot;</span></span><br><span class="line"><span class="built_in">export</span> envp=<span class="string">&quot;SUCCESSFUL&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>2.childShell.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is childShell.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;here is the child shell to show the advantage of using export to create environment parameter.&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;envp: <span class="variable">$envp</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;srcp: <span class="variable">$srcp</span>&quot;</span></span><br></pre></td></tr></table></figure>
+        <h2 id="What-is-Himmelbau-Function"><a href="#What-is-Himmelbau-Function" class="headerlink" title="What is Himmelbau Function?"></a>What is Himmelbau Function?</h2><p>It is a function of two variables. It has a bowl-like 3d shape and four points which all have a minimum value of zero. This is a function wildly used to examine a optimization algorithm.</p>
+<p>It can be defined in python like this.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">himmelblau</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> (x[<span class="number">0</span>] ** <span class="number">2</span> + x[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<p>3.parentShell.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is parentShell.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;here is the parent shell&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;load the config by source&quot;</span></span><br><span class="line"><span class="built_in">source</span> ./child_globalconfig.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;parent shell tries to echo the srcp and envp&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;envp: <span class="variable">$envp</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;srcp: <span class="variable">$srcp</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;child shell(by bash)&quot;</span></span><br><span class="line">bash ./childShell.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;child shell(by source)&quot;</span></span><br><span class="line"><span class="built_in">source</span> ./childShell.sh</span><br></pre></td></tr></table></figure>
-<p>4.Running the <code>parentShell.sh</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ bash parentShell.sh</span><br><span class="line">---</span><br><span class="line">here is the parent shell</span><br><span class="line">load the config by <span class="built_in">source</span></span><br><span class="line">---</span><br><span class="line">parent shell tries to <span class="built_in">echo</span> the srcp and envp</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: successful</span><br><span class="line">---</span><br><span class="line">child shell(by bash)</span><br><span class="line">here is the child shell to show the advantage of using <span class="built_in">export</span> to create environment parameter.</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: </span><br><span class="line">---</span><br><span class="line">child shell(by <span class="built_in">source</span>)</span><br><span class="line">here is the child shell to show the advantage of using <span class="built_in">export</span> to create environment parameter.</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: successful</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>The visualization of it can be realized by code below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">himmelblau</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> (x[<span class="number">0</span>] ** <span class="number">2</span> + x[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br><span class="line">x = np.arange(-<span class="number">6</span>, <span class="number">6</span>, <span class="number">0.1</span>)</span><br><span class="line">y = np.arange(-<span class="number">6</span>, <span class="number">6</span>, <span class="number">0.1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;x, y range:&#x27;</span>, x.shape, y.shape)</span><br><span class="line">X, Y = np.meshgrid(x,y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;X, Y maps:&#x27;</span>, X.shape, Y.shape)</span><br><span class="line"></span><br><span class="line">Z = himmelblau([X,Y])</span><br><span class="line"></span><br><span class="line">fig = plt.figure(<span class="string">&#x27;himmelblau&#x27;</span>)</span><br><span class="line">ax = fig.gca(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line">ax.plot_surface(X, Y, Z)</span><br><span class="line">ax.view_unit(<span class="number">60</span>, -<span class="number">30</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">plt.show</span><br></pre></td></tr></table></figure>
+
+<h2 id="The-purpose-of-this-practice"><a href="#The-purpose-of-this-practice" class="headerlink" title="The purpose of this practice"></a>The purpose of this practice</h2><ul>
+<li><p>Use a Gradient Descent to find the minimum of the function.</p>
+</li>
+<li><p>Have a deeper understanding of the truth that the initialization of a GD model is important.</p>
+</li>
+</ul>
+<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p>(in x/code/py)</p>
+<p>Learning from <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1US4y1M7fg?p=46">bilibili: the best pytorch tutorial of 2021</a><br>This script didn’t use auto <em>optimizer</em>, which aims to use less module-source feature.It causes some problems, which help me understand how <em>pytorch</em> works.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/python3</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author:LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-18</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">himmelblau</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (x[<span class="number">0</span>] ** <span class="number">2</span> + x[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line"><span class="comment">#visualization,which is not required in this script</span></span><br><span class="line"><span class="comment">##x = np.arange(-6, 6, 0.1)</span></span><br><span class="line"><span class="comment">##y = np.arange(-6, 6, 0.1)</span></span><br><span class="line"><span class="comment">##print(&#x27;x, y range:&#x27;, x.shape, y.shape)</span></span><br><span class="line"><span class="comment">##X, Y = np.meshgrid(x,y)</span></span><br><span class="line"><span class="comment">##print(&#x27;X, Y maps:&#x27;, X.shape, Y.shape)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##Z = himmelblau([X,Y])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show the visualization of Himmelblau function </span></span><br><span class="line"><span class="comment">##fig = plt.figure(&#x27;himmelblau&#x27;)</span></span><br><span class="line"><span class="comment">##ax = fig.gca(projection=&#x27;3d&#x27;)</span></span><br><span class="line"><span class="comment">##ax.plot_surface(X, Y, Z)</span></span><br><span class="line"><span class="comment">##ax.view_init(60, -30)</span></span><br><span class="line"><span class="comment">##ax.set_xlabel(&#x27;x&#x27;)</span></span><br><span class="line"><span class="comment">##ax.set_ylabel(&#x27;y&#x27;)</span></span><br><span class="line"><span class="comment">##plt.show()</span></span><br><span class="line"><span class="comment">#end of the visualization</span></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Input: A pair of initialization of x,y of Himmelblau function</span></span><br><span class="line">point = [<span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">point[<span class="number">0</span>] = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;a list of initialization list for the model(x):&quot;</span>))</span><br><span class="line">point[<span class="number">1</span>] = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;a list of initialization list for the model(y):&quot;</span>))</span><br><span class="line">t_point = torch.tensor(point, requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># learning rate </span></span><br><span class="line">lr = <span class="number">1e-4</span></span><br><span class="line"><span class="comment"># A loop of 2e4 epoches</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20000</span>):</span><br><span class="line">    <span class="comment"># loop: calculate the function&#x27;s value   </span></span><br><span class="line">    value = (t_point[<span class="number">0</span>] ** <span class="number">2</span> + t_point[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (t_point[<span class="number">0</span>] + t_point[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br><span class="line">    <span class="comment"># loop: calculate the grad</span></span><br><span class="line">    value.backward()</span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">2e2</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># loop: show the value</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;epoch: &quot;</span>, epoch, <span class="string">&quot;, x: &quot;</span>, t_point[<span class="number">0</span>], <span class="string">&quot;, y:&quot;</span>, t_point[<span class="number">1</span>], <span class="string">&quot;, value: &quot;</span>, value.data) </span><br><span class="line">    <span class="keyword">if</span> value != <span class="number">0</span>: </span><br><span class="line">        <span class="comment"># loop: update the x,y</span></span><br><span class="line">        t_point.data[<span class="number">0</span>] = t_point.data[<span class="number">0</span>] - t_point.grad[<span class="number">0</span>] * lr</span><br><span class="line">        t_point.data[<span class="number">1</span>] = t_point.data[<span class="number">1</span>] - t_point.grad[<span class="number">1</span>] * lr</span><br><span class="line">        <span class="comment"># reset the grad.</span></span><br><span class="line">        t_point.grad.zero_()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;____________________&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;final: &quot;</span>,value)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x: &quot;</span>,t_point[<span class="number">0</span>].data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;y: &quot;</span>,t_point[<span class="number">1</span>].data)</span><br></pre></td></tr></table></figure>
+<h2 id="Some-problems"><a href="#Some-problems" class="headerlink" title="Some problems"></a>Some problems</h2><ol>
+<li>Take care of overflow error, especially when using high power.(Maximum of int64tensor: 2 ^ 63 - 1)</li>
+<li>When changing the value of a tensor that requires grad. ,assign the value to <code>tensor1.data</code> instead of to <code>tensor1</code> directly, which will cause the <strong>Error</strong>, <code>Leaf variable was used in a inplace operation</code></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/07/sharement-of-paremeters-between-shell-scripts/" data-id="ckzcbzi3c00005me2dal4csuc" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/20/HimmelblauOptimization_Practice_WorkFlow/" data-id="ckzvbxpee0001nxe29qm94id0" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-PythonNote" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/02/17/PythonNote/" class="article-date">
+  <time datetime="2022-02-17T06:57:55.382Z" itemprop="datePublished">2022-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/17/PythonNote/">Python Learning Note</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="2022-2-6"><a href="#2022-2-6" class="headerlink" title="2022/2/6"></a>2022/2/6</h2><h3 id="Execute-python-scripts-with-options-and-arguments"><a href="#Execute-python-scripts-with-options-and-arguments" class="headerlink" title="Execute python scripts with options and arguments"></a>Execute python scripts with options and arguments</h3><p>learning from <a target="_blank" rel="noopener" href="https://www.runnoob.com/python3-command-line-arguments.html">runnoob</a></p>
+<p>Key:</p>
+<ol>
+<li>Importing two modules: <code>sys</code> and <code>getopt</code></li>
+<li>Create a loop structure to get the opt. and arg.</li>
+</ol>
+<p>It can promote the interaction between python and shell scripts.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># learning from runnoob.com/python3/python3-command-line-arguments.html</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> getopt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Eadd</span>():</span></span><br><span class="line">    NAME = <span class="literal">None</span></span><br><span class="line">    DESCRIPTION = <span class="literal">None</span></span><br><span class="line">    <span class="comment"># skip the first arg. : the name of this script </span></span><br><span class="line">    argv = sys.argv[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># short options mode</span></span><br><span class="line">        opts, args = getopt.getopt(argv, <span class="string">&#x27;N:M:&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Error&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> opt,val <span class="keyword">in</span> opts:</span><br><span class="line">        <span class="keyword">if</span> opt <span class="keyword">in</span> [<span class="string">&#x27;-N&#x27;</span>]:</span><br><span class="line">            NAME = val</span><br><span class="line">        <span class="keyword">elif</span> opt <span class="keyword">in</span> [<span class="string">&#x27;-M&#x27;</span>]:</span><br><span class="line">            DESCRIPTION = val</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;argv(skip the first arg.)&#x27;</span>,argv,<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;NAME:&#x27;</span>, NAME, <span class="string">&#x27;DESCRIPTION:&#x27;</span>, DESCRIPTION, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;args(getopt)&#x27;</span>, args, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">Eadd()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2022-2-8"><a href="#2022-2-8" class="headerlink" title="2022/2/8"></a>2022/2/8</h2><h3 id="Get-the-size-creation-time-access-time-modification-time-of-file"><a href="#Get-the-size-creation-time-access-time-modification-time-of-file" class="headerlink" title="Get the size, creation time, access time, modification time of file"></a>Get the size, creation time, access time, modification time of file</h3><p>from <a target="_blank" rel="noopener" href="https://www.cnblogs.com/shaosks/p/5614630.html">cnblogs</a><br>0. Get the time stamp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">timestamp = time.time()</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Change the time stamp into time:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TimeStampToTime</span>(<span class="params">timestamp</span>):</span></span><br><span class="line">	timeStruct = time.localtime(timestamp)</span><br><span class="line">	<span class="keyword">return</span> time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>,timeStruct)</span><br></pre></td></tr></table></figure>
+<p>or an easier way:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localtime = time.asctime(time.localtime(time.time))</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the size of a file(MB)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileSize</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	fsize = os.path.getsize(filePath)</span><br><span class="line">	fsize = fsize/<span class="built_in">float</span>(<span class="number">1024</span>*<span class="number">1024</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">round</span>(fsize, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the access time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileAccessTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getatime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the creation time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileCreateTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getctime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the modification time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileModifyTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getmtime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/17/PythonNote/" data-id="ckzvbxpeo0003nxe236u98hcj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
 
     </footer>
   </div>
@@ -126,10 +186,14 @@
   
     <article id="post-ClassificationAndMNIST" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2022/02/06/ClassificationAndMNIST/" class="article-date">
-  <time datetime="2022-02-06T12:31:15.637Z" itemprop="datePublished">2022-02-06</time>
+    <a href="/2022/02/17/ClassificationAndMNIST/" class="article-date">
+  <time datetime="2022-02-17T06:14:23.783Z" itemprop="datePublished">2022-02-17</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MachineLearning/">MachineLearning</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -138,7 +202,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/06/ClassificationAndMNIST/">Classification and MNIST dataset</a>
+      <a class="article-title" href="/2022/02/17/ClassificationAndMNIST/">Classification and MNIST dataset</a>
     </h1>
   
 
@@ -197,10 +261,70 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/02/06/ClassificationAndMNIST/" data-id="ckz1haofv000028e22n3803n7" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/02/17/ClassificationAndMNIST/" data-id="ckz1haofv000028e22n3803n7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sharement-of-paremeters-between-shell-scripts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/" class="article-date">
+  <time datetime="2022-02-07T05:51:05.000Z" itemprop="datePublished">2022-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/">sharement of paremeters between shell scripts</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>Today some problem occurs when I want to write a shell script that helps me <code>cd</code> to some deep directories which are long enough for me, a lazy man, to write a script. I found that <code>cd</code> does’t work in a <code>.sh</code> file when I use <code>bash</code> to execute it. Then I learned that a child shell is created to execute the commands in the scripts when using <code>bash</code>. To solve this problem, the most fundmental way is to use <code>source</code>, which won’t create a child shell.</p>
+<p>After solving it, I wondered that how does two shell scripts share their parameters when one script will create a child shell in another’s child shell, which means that you can’t just use <code>bash config.sh</code> to tell the parent shell what the paraments in the <code>config.sh</code> are, and using <code>source config.sh</code> won’t tell the parent shell’s another child shell(e.g. step1.sh) what the paraments are.(like stucture below) </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#in the `parent.sh`</span></span><br><span class="line"><span class="built_in">source</span> config.sh</span><br><span class="line"></span><br><span class="line">bash step1.sh</span><br><span class="line"><span class="comment">#`step1.sh` won&#x27;t get the parameters in the `copnfig.sh`</span></span><br></pre></td></tr></table></figure>
+<h1 id="Solvement"><a href="#Solvement" class="headerlink" title="Solvement"></a>Solvement</h1><p>There are three kinds of variable in shell scripts:</p>
+<ul>
+<li>local variable: difined by <code>local</code> statement, scope: the function in which it is defined</li>
+<li>global variable: default, scope: the shell(not including child shells) </li>
+<li>environment variable: defined by <code>export</code> command, scope: the shell(including child shells)</li>
+</ul>
+<p>( from<a target="_blank" rel="noopener" href="https://ningyuwhut.github.io/cn/2019/06/share-shell-variable-between-scripts">ningyuwhut’s blog</a>)</p>
+<p>Figuring out these three kinds of variable helps a lot in solving the probelms above.</p>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>I used three shell scripts to show it.</p>
+<ol>
+<li>child_globalconfig.sh<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is child_globalconfig.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line">srcp=<span class="string">&quot;successful&quot;</span></span><br><span class="line"><span class="built_in">export</span> envp=<span class="string">&quot;SUCCESSFUL&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>2.childShell.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is childShell.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;here is the child shell to show the advantage of using export to create environment parameter.&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;envp: <span class="variable">$envp</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;srcp: <span class="variable">$srcp</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.parentShell.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is parentShell.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;here is the parent shell&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;load the config by source&quot;</span></span><br><span class="line"><span class="built_in">source</span> ./child_globalconfig.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;parent shell tries to echo the srcp and envp&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;envp: <span class="variable">$envp</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;srcp: <span class="variable">$srcp</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;child shell(by bash)&quot;</span></span><br><span class="line">bash ./childShell.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;child shell(by source)&quot;</span></span><br><span class="line"><span class="built_in">source</span> ./childShell.sh</span><br></pre></td></tr></table></figure>
+<p>4.Running the <code>parentShell.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ bash parentShell.sh</span><br><span class="line">---</span><br><span class="line">here is the parent shell</span><br><span class="line">load the config by <span class="built_in">source</span></span><br><span class="line">---</span><br><span class="line">parent shell tries to <span class="built_in">echo</span> the srcp and envp</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: successful</span><br><span class="line">---</span><br><span class="line">child shell(by bash)</span><br><span class="line">here is the child shell to show the advantage of using <span class="built_in">export</span> to create environment parameter.</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: </span><br><span class="line">---</span><br><span class="line">child shell(by <span class="built_in">source</span>)</span><br><span class="line">here is the child shell to show the advantage of using <span class="built_in">export</span> to create environment parameter.</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: successful</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/07/sharement-of-paremeters-between-shell-scripts/" data-id="ckzcbzi3c00005me2dal4csuc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
 
     </footer>
   </div>
@@ -413,13 +537,20 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
 
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mechine-learning/" rel="tag">mechine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mechine-learning/" rel="tag">mechine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
     </div>
   </div>
 
@@ -429,7 +560,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 10px;">Note</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mechine-learning/" style="font-size: 10px;">mechine learning</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+      <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 10px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Practice/" style="font-size: 10px;">Practice</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mechine-learning/" style="font-size: 10px;">mechine learning</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
     </div>
   </div>
 
@@ -451,23 +582,23 @@
       <ul>
         
           <li>
+            <a href="/2022/02/20/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/17/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/02/17/ClassificationAndMNIST/">Classification and MNIST dataset</a>
+          </li>
+        
+          <li>
             <a href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/">sharement of paremeters between shell scripts</a>
           </li>
         
           <li>
-            <a href="/2022/02/06/ClassificationAndMNIST/">Classification and MNIST dataset</a>
-          </li>
-        
-          <li>
             <a href="/2022/01/31/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2022/01/14/GAN-learning/">GAN_learning(PLAN)</a>
-          </li>
-        
-          <li>
-            <a href="/2022/01/14/hello-hexo/">hello hexo</a>
           </li>
         
       </ul>
