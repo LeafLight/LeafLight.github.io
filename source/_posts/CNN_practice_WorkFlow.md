@@ -9,7 +9,7 @@ Convolution Neural Network is a widely used model all around the world. To have 
 ## Workflow
 
 1. Loading the MNIST data into 2 sets(train, test)
-2. Building a CNN, which has a structure of 4 layers~(2 Convolution layers, 2 fully connected layers)~ (4 Convolution layers, 4 linear full connected layers)
+2. Building a CNN, which has a structure of ~4 layers (2 Convolution layers, 2 fully connected layers)~  8 layers(4 Convolution layers, 4 linear full connected layers)
 3. Training the network by train set
 4. Choosing the parameters by validation set
 5. Testing by test set
@@ -150,7 +150,8 @@ The one using cross-entropy is changed from the script above with modification b
 < criterion = nn.MSELoss()
 ---
 > criterion = nn.CrossEntropyLoss()
-83,85c83,85                                                                    <         out = net(x)
+83,85c83,85
+<         out = net(x)
 <         y_onehot = one_hot(y)
 <         loss = criterion(out, y_onehot)
 ---
