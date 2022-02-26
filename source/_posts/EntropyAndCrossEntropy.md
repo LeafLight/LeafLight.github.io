@@ -17,6 +17,7 @@ These definitions above may do not help at all. And the simple answer of the dif
 ## Why do we use Information Entropy?
 
 When faced with classification problems(or sometimes logistic regression), using Information Entropy instead of final accuracy as loss is important. (though it seems like we use entropy because of the weakness of using final accuracy instead of the strength of information entropy,2022/2/21)
+(2022/2/22, I saw the power of cross entropy in the field of classification in a [practice of CNN work for MNIST](https://leaflight.github.io/2022/02/26/CNN_practice_WorkFlow/).)
 
 That is because the output of a classification model are usually a list of transformed(or cutted) probabilities(like p>0.5?t=1:t=0), which means using the final accuracy will lead to some problems,such as:
 
@@ -24,6 +25,7 @@ That is because the output of a classification model are usually a list of trans
 * the gradient is not continuous since the accuracy is not continuous.
 
 (Here I wondered that why not use MSE of p and 0 or 1 as loss, and then I learned that it does work(Actually, this method is used in [the MNIST test before](https://leaflight.github.io/2022/02/17/ClassificationAndMNIST/)). No one can tell which one is better than another. But it is an interesting way to understand information, and a useful way to evaluate the loss, so just go on.)
+
 
 ## how to understand Information Entropy in a easy way?
 
