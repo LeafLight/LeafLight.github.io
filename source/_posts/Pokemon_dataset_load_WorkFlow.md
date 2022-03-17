@@ -1,5 +1,5 @@
 ---
-title: Custom Dataset: Pokemon dataset loading by Pytorch
+title: Custom Dataset--Pokemon dataset loading by Pytorch
 tags: ["Pytorch", "Pokemon", "Dataset", "WorkFlow"]
 ---
 
