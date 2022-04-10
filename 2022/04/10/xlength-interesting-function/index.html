@@ -5,14 +5,21 @@
   
 
   
-  <title>Tag: CNN | LeafLight&#39;s Blog by Hexo</title>
+  <title>xlength-an interesting function | LeafLight&#39;s Blog by Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafLight&#39;s Blog by Hexo">
-<meta property="og:url" content="http://example.com/tags/CNN/index.html">
+  <meta name="description" content="BackgroundWhen reading the source code of DLEPS, some interesting codes caught my eyes, including: six.string_types, get_zinc_tokenizer(), xlength(), and so on. MainPre-knowledgelambdaA lambda functio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xlength-an interesting function">
+<meta property="og:url" content="http://example.com/2022/04/10/xlength-interesting-function/index.html">
 <meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="BackgroundWhen reading the source code of DLEPS, some interesting codes caught my eyes, including: six.string_types, get_zinc_tokenizer(), xlength(), and so on. MainPre-knowledgelambdaA lambda functio">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-10T06:26:26.000Z">
+<meta property="article:modified_time" content="2022-04-10T08:13:00.565Z">
 <meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="functools">
+<meta property="article:tag" content="lambdaFunction">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
@@ -62,40 +69,65 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/26/CNN_practice_WorkFlow/" class="archive-article-date">
-  <time datetime="2022-02-26T12:24:26.995Z" itemprop="datePublished">Feb 26</time>
+        <section id="main"><article id="post-xlength-interesting-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/10/xlength-interesting-function/" class="article-date">
+  <time datetime="2022-04-10T06:26:26.000Z" itemprop="datePublished">2022-04-10</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/26/CNN_practice_WorkFlow/">CNN Practice Workflow</a>
+    <h1 class="article-title" itemprop="name">
+      xlength-an interesting function
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When reading the source code of <a target="_blank" rel="noopener" href="https://github.com/kekegg/DLEPS/bolb/main/code/Preprocess/preprocess.ipynb">DLEPS</a>, some interesting codes caught my eyes, including: <code>six.string_types</code>, <code>get_zinc_tokenizer()</code>, <code>xlength()</code>, and so on.</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h3 id="Pre-knowledge"><a href="#Pre-knowledge" class="headerlink" title="Pre-knowledge"></a>Pre-knowledge</h3><h4 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h4><p>A lambda function in <em>python</em> is in some ways like a simple <code>def</code> fucntion with only a <code>return</code> line.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use `def` function to represent `lambda x: x * x`</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> x * x</span><br></pre></td></tr></table></figure>
 
+<h4 id="functools-reduce"><a href="#functools-reduce" class="headerlink" title="functools.reduce()"></a>functools.reduce()</h4><p><code>functools</code> is a python module which contains some advanced functions. The <code>functools.reduce()</code> will apply a given function to a iterable sequence and a initial value is optional.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use `functools.reduce()` to realize `sum()`</span></span><br><span class="line"><span class="comment"># functools.reduce(func, iter[, init])</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">y = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="built_in">sum</span> = reduce(<span class="keyword">lambda</span> x1, x2: x1 + x2, y, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">sum</span>)</span><br><span class="line"><span class="comment"># 6</span></span><br></pre></td></tr></table></figure>
+<p>In the case above, the first step of work by <code>reduce</code> is to apply the given function with <code>init</code> 0  and the first element of the <code>iter</code> y as input(so the given function must receive 2 parameters) to get the result 1. Then apply the function with the result 1 and the second element 2, and repeat it until the last one of the list.</p>
+<p>If no <code>init</code> was given, it would first apply the given function with the first two elements of the <code>iter</code> y.</p>
+<h3 id="xlength"><a href="#xlength" class="headerlink" title="xlength()"></a>xlength()</h3><p>The source code of xlength:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xlength</span>(<span class="params">y</span>):</span></span><br><span class="line">	<span class="keyword">return</span> reduce(<span class="keyword">lambda</span> <span class="built_in">sum</span>, element: <span class="built_in">sum</span> + <span class="number">1</span>, y, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>It really confused me when I first ran this code and found that it returns the length of the list. Then I realized it that it works by the interesting applying of <code>init</code> and <code>func</code>. The <code>func</code> desert the <code>element</code>, which means it has no effect on the results the <code>func</code> returns. So the <code>sum</code> is in some ways a counter to count the length of the <code>iter</code> by <code>sum + 1</code> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/10/xlength-interesting-function/" data-id="cl1t0dudn00004ge240nu6v5c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/03/17/Pokemon_dataset_load_WorkFlow/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Custom Dataset--Pokemon dataset loading by Pytorch</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
