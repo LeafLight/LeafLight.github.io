@@ -1,7 +1,7 @@
 ---
 title: xlength-an interesting function
 date: 2022-04-10 14:26:26
-tags:["Python", "functools", "lambdaFunction"]
+tags: ["Python", "functools", "lambdaFunction"]
 ---
 
 ## Background
