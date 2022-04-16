@@ -1,5 +1,5 @@
 ---
-title: [nltk] Grammar -- Encoding Part
+title: nltk and Grammar -- Encoding Part
 date: 2022-04-16 21:14:59
 tags: ["nltk", "molecules", "GrammarVAE", "MachineLearning", "CMap"]
 categories: MachineLearning
