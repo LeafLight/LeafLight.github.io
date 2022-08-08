@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>nltk and Grammar -- Encoding Part | LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="BackgroundWhen dealing with the recent project associated with CMap, an interesting neural network model called GVAE caught my attention. After learning the details of it, I tried to re-do the model a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nltk and Grammar -- Encoding Part">
+<meta property="og:url" content="http://example.com/2022/04/16/nltk-Grammar/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="BackgroundWhen dealing with the recent project associated with CMap, an interesting neural network model called GVAE caught my attention. After learning the details of it, I tried to re-do the model a">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-16T13:14:59.000Z">
+<meta property="article:modified_time" content="2022-08-08T17:51:44.729Z">
+<meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="MachineLearning">
+<meta property="article:tag" content="nltk">
+<meta property="article:tag" content="molecules">
+<meta property="article:tag" content="GrammarVAE">
+<meta property="article:tag" content="CMap">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-nltk-Grammar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/16/nltk-Grammar/" class="article-date">
+  <time datetime="2022-04-16T13:14:59.000Z" itemprop="datePublished">2022-04-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MachineLearning/">MachineLearning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      nltk and Grammar -- Encoding Part
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When dealing with the recent project associated with <em>CMap</em>, an interesting neural network model called <strong>GVAE</strong> caught my attention. After learning the details of it, I tried to re-do the model and this blog is a recording in some ways and mainly about the <em>Grammar</em> part.</p>
+<h2 id="Grammar-–-Context-Free-Grammar-CFG"><a href="#Grammar-–-Context-Free-Grammar-CFG" class="headerlink" title="Grammar – Context-Free Grammar(CFG)"></a>Grammar – Context-Free Grammar(CFG)</h2><p>The key feature of GVAE is <strong>CFG</strong>, which can be manipulated easily by the python module <code>nltk</code>.</p>
+<ol>
+<li><p>Generate a <code>CFG</code> object from string</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> nltk</span><br><span class="line"><span class="keyword">from</span> nltk <span class="keyword">import</span> CFG</span><br><span class="line"></span><br><span class="line">SMILEsGrammar = CFG.fromstring(</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    smiles -&gt; chain</span></span><br><span class="line"><span class="string">    atom -&gt; bracket_atom | aliphatic_organic | aromatic_organic</span></span><br><span class="line"><span class="string">    aliphatic_organic -&gt; &#x27;B&#x27; | &#x27;C&#x27; | &#x27;N&#x27; | &#x27;O&#x27; | &#x27;S&#x27; | &#x27;P&#x27; | &#x27;F&#x27; | &#x27;I&#x27; | &#x27;Cl&#x27; | &#x27;Br&#x27;</span></span><br><span class="line"><span class="string">    aromatic_organic -&gt; &#x27;[&#x27; BAI &#x27;]&#x27;</span></span><br><span class="line"><span class="string">    BAI -&gt; isotope symbol BAC | symbol BAC | isotope symbol | symbol</span></span><br><span class="line"><span class="string">    BAC -&gt; chiral BAH | BAH | chiral</span></span><br><span class="line"><span class="string">    BAH -&gt; hcount BACH | BACH | hcount</span></span><br><span class="line"><span class="string">    BACH -&gt; charge class | charge | class</span></span><br><span class="line"><span class="string">    symbol -&gt; aliphatic_organic | aromatic_organic</span></span><br><span class="line"><span class="string">    isotope -&gt; DIGIT | DIGIT DIGIT | DIGIT DIGIT DIGIT</span></span><br><span class="line"><span class="string">    DIGIT -&gt; &#x27;1&#x27; | &#x27;2&#x27; | &#x27;3&#x27; | &#x27;4&#x27; | &#x27;5&#x27; | &#x27;6&#x27; | &#x27;7&#x27; | &#x27;8&#x27;</span></span><br><span class="line"><span class="string">    chiral -&gt; &#x27;@&#x27; | &#x27;@@&#x27;</span></span><br><span class="line"><span class="string">    hcount -&gt; &#x27;H&#x27; | &#x27;H&#x27; DIGIT</span></span><br><span class="line"><span class="string">    charge -&gt; &#x27;-&#x27; | &#x27;-&#x27; DIGIT | &#x27;-&#x27; DIGIT DIGIT | &#x27;+&#x27; | &#x27;+&#x27; DIGIT | &#x27;+&#x27; DIGIT DIGIT</span></span><br><span class="line"><span class="string">    bond -&gt; &#x27;-&#x27; | &#x27;=&#x27; | &#x27;#&#x27; | &#x27;/&#x27; | &#x27;\\&#x27;</span></span><br><span class="line"><span class="string">    ringbond -&gt; DIGIT | bond DIGIT</span></span><br><span class="line"><span class="string">    branched_atom -&gt; atom | atom RB | atom BB | atom RB BB</span></span><br><span class="line"><span class="string">    RB -&gt; RB ringbond | ringbond</span></span><br><span class="line"><span class="string">    BB -&gt; BB branch | branch</span></span><br><span class="line"><span class="string">    branch -&gt; &#x27;(&#x27; chain &#x27;)&#x27; | &#x27;(&#x27; bond chain &#x27;)&#x27;</span></span><br><span class="line"><span class="string">    chain -&gt; branched_atom | chain branched_atom | chain bond branched_atom</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>Generate a parse tree of a molecule in the form of SMILEs</p>
+<ol>
+<li>Get a tokenizer<br> Since some leaves in the grammar has more than one charactor(like “Cl” or “Br”), default tokenizer may result in errors. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_zinc_tokenizer</span>(<span class="params">cfg</span>):</span></span><br><span class="line">    <span class="comment"># get all the long tokens for the following replacement work</span></span><br><span class="line">    <span class="comment"># long tokens: tokens with more than one charactor, like &#x27;Br&#x27;</span></span><br><span class="line">    long_tokens = [a <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">list</span>(SMILEsGrammar._lexical_index.keys()) <span class="keyword">if</span> xlength(a) &gt; <span class="number">1</span>]</span><br><span class="line">    <span class="comment"># char used for replacements of &#x27;Cl&#x27;, &#x27;Br&#x27;, &#x27;@@&#x27;</span></span><br><span class="line">    replacements = [<span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;^&#x27;</span>]</span><br><span class="line">    <span class="comment"># ensure that we have  paired origin tokens and their replacements</span></span><br><span class="line">    <span class="keyword">assert</span> xlength(long_tokens) == <span class="built_in">len</span>(replacements)</span><br><span class="line">    <span class="comment"># ensure that all the tokens for replacement is available: not in the origin dict of grammar</span></span><br><span class="line">    <span class="keyword">for</span> token <span class="keyword">in</span> replacements:</span><br><span class="line">        <span class="keyword">assert</span> token <span class="keyword">not</span> <span class="keyword">in</span> cfg._lexical_index</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the func to return</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tokenize</span>(<span class="params">smiles</span>):</span></span><br><span class="line">        <span class="comment"># replace all the long_tokens in the input SMILEs</span></span><br><span class="line">        <span class="keyword">for</span> i, token <span class="keyword">in</span> <span class="built_in">enumerate</span>(long_tokens):</span><br><span class="line">            smiles = smiles.replace(token, replacements[i])</span><br><span class="line">        <span class="comment"># the result variable init</span></span><br><span class="line">        tokens = []</span><br><span class="line">        <span class="keyword">for</span> token <span class="keyword">in</span> smiles:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># try to find the replaced elements&#x27; index and append the original elements </span></span><br><span class="line">                ix = replacements.index(token)</span><br><span class="line">                tokens.append(long_tokens[ix])</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                tokens.append(token)</span><br><span class="line">        <span class="keyword">return</span> tokens</span><br><span class="line">    <span class="keyword">return</span> tokenize</span><br></pre></td></tr></table></figure></li>
+<li>tokenize the SMILEs string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">smi = <span class="string">&quot;CC1=CC(=O)C2=C(O1)C=C3C(=C2OC)C=CO3&quot;</span></span><br><span class="line">SMILEs_tokenizer = get_zinc_tokenizer(SMILEsGrammar)</span><br><span class="line">smi_t = SMILEs_tokenizer(smi)</span><br></pre></td></tr></table></figure></li>
+<li>generate the parse tree of the given SMILEs string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SMILEs_parser = nltk.ChartParser(SMILEsGrammar)</span><br><span class="line">smi_s = <span class="built_in">next</span>(SMILEs_parser.parse(smi_t))</span><br><span class="line"><span class="built_in">type</span>(smi_s)</span><br><span class="line"><span class="comment"># nltk.tree.tree.Tree</span></span><br></pre></td></tr></table></figure></li>
+<li>regenerate the SMILEs from the tree<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;</span>.join(smi_s.leaves()</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Get the productions-index map dict for one-hot encode</p>
+<ol>
+<li>productions of the parse tree<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smi_s.productions()</span><br></pre></td></tr></table></figure></li>
+<li>productions-index map dict<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Prod_map = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> ix, prod <span class="keyword">in</span> <span class="built_in">enumerate</span>(SMILEsGrammar.productions()):</span><br><span class="line">	Prod_map[prod] = ix</span><br></pre></td></tr></table></figure></li>
+<li>one-hot encoding<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># a batch of smiles strings as example</span></span><br><span class="line">smiles = <span class="string">&quot;here is a list of smiles&quot;</span></span><br><span class="line"></span><br><span class="line">smiles_t = <span class="built_in">map</span>(SMILEs_tokenizer, smiles)</span><br><span class="line"></span><br><span class="line">smiles_parse_trees = []</span><br><span class="line"><span class="keyword">for</span> i, t <span class="keyword">in</span> <span class="built_in">enumerate</span>(smiles_t):</span><br><span class="line">	smiles_parse_trees[i] = SMILEs_parser.parse(t)</span><br><span class="line"></span><br><span class="line">productions_seq = [tree.productions() <span class="keyword">for</span> tree <span class="keyword">in</span> smiles_parse_trees]</span><br><span class="line"></span><br><span class="line">indices = [np.array([Prod_map[prod] <span class="keyword">for</span> prod <span class="keyword">in</span> entry], dtype=<span class="built_in">int</span>) <span class="keyword">for</span> entry <span class="keyword">in</span> productions_seq]</span><br><span class="line"></span><br><span class="line">MAX_LEN = <span class="number">277</span></span><br><span class="line">n_char = <span class="built_in">len</span>(SMILEsGrammar.productions())</span><br><span class="line"></span><br><span class="line"><span class="comment"># init </span></span><br><span class="line">one_hot = np.zeros((<span class="built_in">len</span>(indices), MAX_LEN, n_char),dtype=np.float32)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(indices)):</span><br><span class="line">	num_productions = <span class="built_in">len</span>(indices[i])</span><br><span class="line">	<span class="keyword">if</span> num_productions &gt; MAX_LEN:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Too Large molecule, out of range&quot;</span>)</span><br><span class="line">		one_hot[i][np.arange(MAX_LEN), indices[i][:MAX_LEN]] = <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		one_hot[i][np.arange(num_productions), indices[i]] = <span class="number">1</span></span><br><span class="line">		one_hot[i][np.arange(num_productions, MAX_LEN, -<span class="number">1</span>)] = <span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/16/nltk-Grammar/" data-id="cl6l23unx000jbp266s2ra4s2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/09/CNN_practice_WorkFlow/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CNN Practice Workflow
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/10/xlength-interesting-function/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">xlength-an interesting function</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

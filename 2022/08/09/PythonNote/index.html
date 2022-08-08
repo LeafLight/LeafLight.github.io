@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python Learning Note | LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2022&#x2F;2&#x2F;6Execute python scripts with options and argumentslearning from runnoob Key:  Importing two modules: sys and getopt Create a loop structure to get the opt. and arg.  It can promote the interact">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Learning Note">
+<meta property="og:url" content="http://example.com/2022/08/09/PythonNote/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="2022&#x2F;2&#x2F;6Execute python scripts with options and argumentslearning from runnoob Key:  Importing two modules: sys and getopt Create a loop structure to get the opt. and arg.  It can promote the interact">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-08T17:51:44.728Z">
+<meta property="article:modified_time" content="2022-08-08T17:51:44.728Z">
+<meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="note">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PythonNote" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/PythonNote/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python Learning Note
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="2022-2-6"><a href="#2022-2-6" class="headerlink" title="2022/2/6"></a>2022/2/6</h2><h3 id="Execute-python-scripts-with-options-and-arguments"><a href="#Execute-python-scripts-with-options-and-arguments" class="headerlink" title="Execute python scripts with options and arguments"></a>Execute python scripts with options and arguments</h3><p>learning from <a target="_blank" rel="noopener" href="https://www.runnoob.com/python3-command-line-arguments.html">runnoob</a></p>
+<p>Key:</p>
+<ol>
+<li>Importing two modules: <code>sys</code> and <code>getopt</code></li>
+<li>Create a loop structure to get the opt. and arg.</li>
+</ol>
+<p>It can promote the interaction between python and shell scripts.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># learning from runnoob.com/python3/python3-command-line-arguments.html</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> getopt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Eadd</span>():</span></span><br><span class="line">    NAME = <span class="literal">None</span></span><br><span class="line">    DESCRIPTION = <span class="literal">None</span></span><br><span class="line">    <span class="comment"># skip the first arg. : the name of this script </span></span><br><span class="line">    argv = sys.argv[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># short options mode</span></span><br><span class="line">        opts, args = getopt.getopt(argv, <span class="string">&#x27;N:M:&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Error&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> opt,val <span class="keyword">in</span> opts:</span><br><span class="line">        <span class="keyword">if</span> opt <span class="keyword">in</span> [<span class="string">&#x27;-N&#x27;</span>]:</span><br><span class="line">            NAME = val</span><br><span class="line">        <span class="keyword">elif</span> opt <span class="keyword">in</span> [<span class="string">&#x27;-M&#x27;</span>]:</span><br><span class="line">            DESCRIPTION = val</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;argv(skip the first arg.)&#x27;</span>,argv,<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;NAME:&#x27;</span>, NAME, <span class="string">&#x27;DESCRIPTION:&#x27;</span>, DESCRIPTION, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;args(getopt)&#x27;</span>, args, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">Eadd()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2022-2-8"><a href="#2022-2-8" class="headerlink" title="2022/2/8"></a>2022/2/8</h2><h3 id="Get-the-size-creation-time-access-time-modification-time-of-file"><a href="#Get-the-size-creation-time-access-time-modification-time-of-file" class="headerlink" title="Get the size, creation time, access time, modification time of file"></a>Get the size, creation time, access time, modification time of file</h3><p>from <a target="_blank" rel="noopener" href="https://www.cnblogs.com/shaosks/p/5614630.html">cnblogs</a><br>0. Get the time stamp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">timestamp = time.time()</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Change the time stamp into time:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TimeStampToTime</span>(<span class="params">timestamp</span>):</span></span><br><span class="line">	timeStruct = time.localtime(timestamp)</span><br><span class="line">	<span class="keyword">return</span> time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>,timeStruct)</span><br></pre></td></tr></table></figure>
+<p>or an easier way:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localtime = time.asctime(time.localtime(time.time))</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the size of a file(MB)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileSize</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	fsize = os.path.getsize(filePath)</span><br><span class="line">	fsize = fsize/<span class="built_in">float</span>(<span class="number">1024</span>*<span class="number">1024</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">round</span>(fsize, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the access time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileAccessTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getatime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the creation time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileCreateTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getctime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the modification time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileModifyTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getmtime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/PythonNote/" data-id="cl6l23unv000abp26aozn707x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Custom Dataset--Pokemon dataset loading by Pytorch
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/08/09/RNN_practice_WorkFlow/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RNN practice workflow(Pytorch)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

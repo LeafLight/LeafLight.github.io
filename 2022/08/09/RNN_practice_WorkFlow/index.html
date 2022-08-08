@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>RNN practice workflow(Pytorch) | LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="RNNRNN is the abbreviation of recurrent neural network. What makes it special is the memory unit(h) in its structure, which connects all the operations of one single layer like a chain. Let’s do a com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN practice workflow(Pytorch)">
+<meta property="og:url" content="http://example.com/2022/08/09/RNN_practice_WorkFlow/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="RNNRNN is the abbreviation of recurrent neural network. What makes it special is the memory unit(h) in its structure, which connects all the operations of one single layer like a chain. Let’s do a com">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-08T17:51:44.728Z">
+<meta property="article:modified_time" content="2022-08-08T17:51:44.728Z">
+<meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="Workflow">
+<meta property="article:tag" content="Practice">
+<meta property="article:tag" content="RNN">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-RNN_practice_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/RNN_practice_WorkFlow/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RNN practice workflow(Pytorch)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p><strong>RNN</strong> is the abbreviation of <em>recurrent neural network</em>. What makes it special is the <em>memory unit</em>(h) in its structure, which connects all the operations of one single layer like a chain.</p>
+<p>Let’s do a comparison between RNN and CNN. In one layer of CNN, though every convolutional operation cares about local correlationship, each of them is independent of one another. In one layer of RNN, every operation will receive the linear operated result of last operation. It makes the output of the layer consider of the whole input instead of part of it. Though it makes RNN have some defects about gradients.</p>
+<h2 id="RNN-in-pytorch"><a href="#RNN-in-pytorch" class="headerlink" title="RNN in pytorch"></a>RNN in pytorch</h2><p>There are generally two ways of building a RNN layer.</p>
+<ol>
+<li><code>nn.RNN()</code></li>
+<li><code>nn.RNNCell()</code></li>
+</ol>
+<p>Using the first way is convenient while the second way provides us more control of details of the network.</p>
+<p>Here are some examples.</p>
+<ol>
+<li><code>nn.RNN()</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">form torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line">x = torch.randn(num_words, batch, x_feature)</span><br><span class="line">rnn = nn.RNN(</span><br><span class="line">	input_size=x_feature, </span><br><span class="line">	hidden_size=h_feature, </span><br><span class="line">	num_layers=numlayers, </span><br><span class="line">	batch_first=<span class="literal">False</span>)</span><br><span class="line">o, h = rnn(x)</span><br><span class="line">o.shape</span><br><span class="line"><span class="comment">#torch.Size([num_words, batch, h_feature])</span></span><br><span class="line">h.shape</span><br><span class="line"><span class="comment">#torch.Size([num_layers, batch, h_feature])</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>There is something strange in the codes above. Because <code>batch</code> is not the first dim of the input, and there is a <code>batch_first=False</code> by default.<br>It makes sense when you figure out how RNN works, or you can just insist on the batch-first-style input by setting <code>batch_first=True</code> manually.<br>Another thing that catches our sight is that there are two outputs generated by RNN. <code>o</code> is the output of all the operations of the last layer, so it has the same first dim with the input. <code>h</code> is the last time of operation’s output of every layer, so it has the first dim  the same with the number of layers of the RNN.</p>
+<ol start="2">
+<li><code>nn.RNNCell()</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line">x = torch.randn(num_words, batch, x_feature)</span><br><span class="line">rnn_cell = nn.RNNCell(</span><br><span class="line">	input_size =x_feature,</span><br><span class="line">	hidden_size=h_feature</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">h_0 = torch.randn(batch, h_feature)</span><br><span class="line">output = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(x.shape[<span class="number">0</span>]):</span><br><span class="line">	h_0 = rnn_cell(x[i], h_0)</span><br><span class="line">	output.append(h_0)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>Understand of the structure above helps the understand of RNN. What the RNNCell do is one single operation of one layer of RNN without reccurent. So we need to update <code>h_0</code> mannually to do the job of recurrent. </p>
+<p>The structure and theory of RNN is not difficult to understand but easy to mistake and forget. And there are some brilliant ways to build a flexible RNN since it has high flexibility.</p>
+<h2 id="the-flexibility-of-nn-RNN"><a href="#the-flexibility-of-nn-RNN" class="headerlink" title="the flexibility of nn.RNN"></a>the flexibility of <code>nn.RNN</code></h2><p>When using <code>nn.Linear</code>, <code>nn.Conv2d</code> and many other <code>nn</code> layers of pytorch learned before, we can easily notice that these layers don’t care about the <code>batch</code> dim of the input with a shape of <code>[batch, channel, h, w]</code>. It is the advantage of Pytorch which makes the network flexible.</p>
+<p>When using <code>nn.RNN</code> with a input with a shape of <code>[num_time_steps, batch, input_feature]</code>, we can find that <code>nn.RNN</code> only cares about the dim of <code>input_feature</code>, which means we can do something “magical” if we use our imagination.</p>
+<h2 id="Workflow-of-the-practice"><a href="#Workflow-of-the-practice" class="headerlink" title="Workflow of the practice"></a>Workflow of the practice</h2><ol>
+<li>data: <code>sin</code> in numpy</li>
+<li>input: 50 continuous value</li>
+<li>pred: next 1 time step’s 50 continuous points’ value </li>
+</ol>
+<p>data:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">num_time_steps = <span class="number">50</span></span><br><span class="line">start = np.random.randint(<span class="number">3</span>, size=<span class="number">1</span>)</span><br><span class="line">time_steps = np.linspace(start, start +<span class="number">10</span>, num_time_steps)</span><br><span class="line">data = np.sin(time_steps)</span><br><span class="line">data = data.reshape(num_time_steps, <span class="number">1</span>)</span><br><span class="line">x = torch.tensor(data[:-<span class="number">1</span>]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">y = torch.tensor(data[<span class="number">1</span>:]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># in this case, we use batch_first=True in the RNN </span></span><br><span class="line"><span class="comment"># data[:-1] will select all the elements of the array except the last one</span></span><br><span class="line"><span class="comment"># data[1:]  all the elements except the first one(0)</span></span><br></pre></td></tr></table></figure>
+<p>Network:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, </span>):</span></span><br><span class="line">		<span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line">		self.rnn = nn.RNN(</span><br><span class="line">			input_size=<span class="number">1</span>,</span><br><span class="line">			hidden_size=<span class="number">10</span>,</span><br><span class="line">			num_layers=<span class="number">1</span>,</span><br><span class="line">			batch_first=<span class="literal">True</span>,</span><br><span class="line">			)</span><br><span class="line">		self.linear = nn.Linear(<span class="number">10</span>, <span class="number">1</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x, hidden_prev</span>):</span></span><br><span class="line">		out, hidden_prev = self.rnn(x, hidden_prev)</span><br><span class="line">		<span class="comment"># flatten</span></span><br><span class="line">		out = out.view(-<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">		out = nn.linear(out)</span><br><span class="line">		<span class="comment"># unsqueeze batch&#x27;s dim</span></span><br><span class="line">		out = out.unsqueeze(dim=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> out, hidden_prev</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
+
+<p>train:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line">		self.rnn = nn.RNN(</span><br><span class="line">			input_size=<span class="number">1</span>,</span><br><span class="line">			hidden_size=<span class="number">10</span>,</span><br><span class="line">			num_layers=<span class="number">2</span>,</span><br><span class="line">			batch_first=<span class="literal">True</span></span><br><span class="line">		)</span><br><span class="line">		self.linear = nn.Linear(<span class="number">10</span>, <span class="number">1</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x, hidden_prev</span>):</span></span><br><span class="line">		<span class="comment"># x: [1, time_steps, input_feature]</span></span><br><span class="line">		out, hidden_prev = self.rnn(x, hidden_prev)</span><br><span class="line">		<span class="comment"># out: [1, time_steps, hidden_feature]</span></span><br><span class="line">		<span class="comment"># hidden_prev: [1, num_layers, hidden_feature]</span></span><br><span class="line">		out = out.view(-<span class="number">1</span>, hidden_feature)</span><br><span class="line">		<span class="comment"># out: [time_steps * batch, hidden_feature]</span></span><br><span class="line">		out = self.linear(out)</span><br><span class="line">		<span class="comment"># out: [time_steps * batch, 1]</span></span><br><span class="line">		out = out.unsqueeze(dim=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> out, hidden_prev</span><br><span class="line"></span><br><span class="line">model = Net()</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line">hidden_prev = torch.zeros(<span class="number">1</span>, <span class="number">2</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment">#h0: [batch, num_layers, hidden_feature]</span></span><br><span class="line">num_time_steps = <span class="number">50</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6000</span>):</span><br><span class="line">	start = np.random.randint(<span class="number">3</span>, size=<span class="number">1</span>)</span><br><span class="line">	time_steps = np.linspace(start, start + <span class="number">10</span>, num_time_steps)</span><br><span class="line">	data = np.sin(time_steps)</span><br><span class="line">	x = torch.tensor(data[:-<span class="number">1</span>]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps -<span class="number">1</span> ,<span class="number">1</span>)</span><br><span class="line">	y = torch.tensor(data[<span class="number">1</span>:]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	output, hidden_prev = model(x, hidden_prev)</span><br><span class="line">	hidden_prev = hidden_prev.detach()</span><br><span class="line">	<span class="comment"># .detach() set the requires_grad=False of hidden_prev forever</span></span><br><span class="line">	<span class="comment"># Here I can not understand of the action of not clear the hidden_prev of the current loop</span></span><br><span class="line">	</span><br><span class="line">	loss = criterion(output, y)</span><br><span class="line">	optimizer.zero_grad()</span><br><span class="line">	loss.backward()</span><br><span class="line">	optimizer.step()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">iter</span>%<span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;iter:&#123;&#125;, loss:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">iter</span>, loss.item()))</span><br><span class="line"></span><br><span class="line">prediction = []</span><br><span class="line">start = np.random.randint(<span class="number">3</span>, size=<span class="number">1</span>)</span><br><span class="line">time_steps = np.linspace(start, start + <span class="number">10</span>, num_time_steps)</span><br><span class="line">data = np.sin(time_steps)</span><br><span class="line">x = torch.tensor(data[]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">input</span> = x[:, <span class="number">0</span>, :]</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(x.shape[<span class="number">1</span>]):</span><br><span class="line">	<span class="built_in">input</span> = <span class="built_in">input</span>.view(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">	pred, hidden_prev = model(<span class="built_in">input</span>, hidden_prev)</span><br><span class="line">	<span class="built_in">input</span> = pred</span><br><span class="line">	<span class="comment"># update the input for predicting the next y</span></span><br><span class="line">	predictions.append(pred.detach().numpy.ravel()[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>We have mentioned the flexibility of RNN about input before. In the prediction part of the codes above, we can notice that we can take control of the shape of the output by proper manipulation.<br>The prediction codes above, we reshape the output by manual updation of <code>hidden_prev</code> and <code>input</code>, <code>append</code> and loop. There are some details that I am not very clear about, like <code>.detach()</code>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/RNN_practice_WorkFlow/" data-id="cl6l23unv000cbp2664wjaxu6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/09/PythonNote/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python Learning Note
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/08/09/Transformer_learning/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">A deeper insight into the training of Transformer Autoencoder</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

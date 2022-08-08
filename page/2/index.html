@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="LeafLight">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-xlength-interesting-function" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/10/xlength-interesting-function/" class="article-date">
+  <time datetime="2022-04-10T06:26:26.000Z" itemprop="datePublished">2022-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/10/xlength-interesting-function/">xlength-an interesting function</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When reading the source code of <a target="_blank" rel="noopener" href="https://github.com/kekegg/DLEPS/bolb/main/code/Preprocess/preprocess.ipynb">DLEPS</a>, some interesting codes caught my eyes, including: <code>six.string_types</code>, <code>get_zinc_tokenizer()</code>, <code>xlength()</code>, and so on.</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><h3 id="Pre-knowledge"><a href="#Pre-knowledge" class="headerlink" title="Pre-knowledge"></a>Pre-knowledge</h3><h4 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h4><p>A lambda function in <em>python</em> is in some ways like a simple <code>def</code> fucntion with only a <code>return</code> line.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use `def` function to represent `lambda x: x * x`</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> x * x</span><br></pre></td></tr></table></figure>
+
+<h4 id="functools-reduce"><a href="#functools-reduce" class="headerlink" title="functools.reduce()"></a>functools.reduce()</h4><p><code>functools</code> is a python module which contains some advanced functions. The <code>functools.reduce()</code> will apply a given function to a iterable sequence and a initial value is optional.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use `functools.reduce()` to realize `sum()`</span></span><br><span class="line"><span class="comment"># functools.reduce(func, iter[, init])</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line">y = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="built_in">sum</span> = reduce(<span class="keyword">lambda</span> x1, x2: x1 + x2, y, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">sum</span>)</span><br><span class="line"><span class="comment"># 6</span></span><br></pre></td></tr></table></figure>
+<p>In the case above, the first step of work by <code>reduce</code> is to apply the given function with <code>init</code> 0  and the first element of the <code>iter</code> y as input(so the given function must receive 2 parameters) to get the result 1. Then apply the function with the result 1 and the second element 2, and repeat it until the last one of the list.</p>
+<p>If no <code>init</code> was given, it would first apply the given function with the first two elements of the <code>iter</code> y.</p>
+<h3 id="xlength"><a href="#xlength" class="headerlink" title="xlength()"></a>xlength()</h3><p>The source code of xlength:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xlength</span>(<span class="params">y</span>):</span></span><br><span class="line">	<span class="keyword">return</span> reduce(<span class="keyword">lambda</span> <span class="built_in">sum</span>, element: <span class="built_in">sum</span> + <span class="number">1</span>, y, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>It really confused me when I first ran this code and found that it returns the length of the list. Then I realized it that it works by the interesting applying of <code>init</code> and <code>func</code>. The <code>func</code> desert the <code>element</code>, which means it has no effect on the results the <code>func</code> returns. So the <code>sum</code> is in some ways a counter to count the length of the <code>iter</code> by <code>sum + 1</code> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/10/xlength-interesting-function/" data-id="cl6l23unx000qbp26d71zd8tn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sharement-of-paremeters-between-shell-scripts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/" class="article-date">
+  <time datetime="2022-02-07T05:51:05.000Z" itemprop="datePublished">2022-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/">sharement of paremeters between shell scripts</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>Today some problem occurs when I want to write a shell script that helps me <code>cd</code> to some deep directories which are long enough for me, a lazy man, to write a script. I found that <code>cd</code> does’t work in a <code>.sh</code> file when I use <code>bash</code> to execute it. Then I learned that a child shell is created to execute the commands in the scripts when using <code>bash</code>. To solve this problem, the most fundmental way is to use <code>source</code>, which won’t create a child shell.</p>
+<p>After solving it, I wondered that how does two shell scripts share their parameters when one script will create a child shell in another’s child shell, which means that you can’t just use <code>bash config.sh</code> to tell the parent shell what the paraments in the <code>config.sh</code> are, and using <code>source config.sh</code> won’t tell the parent shell’s another child shell(e.g. step1.sh) what the paraments are.(like stucture below) </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#in the `parent.sh`</span></span><br><span class="line"><span class="built_in">source</span> config.sh</span><br><span class="line"></span><br><span class="line">bash step1.sh</span><br><span class="line"><span class="comment">#`step1.sh` won&#x27;t get the parameters in the `copnfig.sh`</span></span><br></pre></td></tr></table></figure>
+<h1 id="Solvement"><a href="#Solvement" class="headerlink" title="Solvement"></a>Solvement</h1><p>There are three kinds of variable in shell scripts:</p>
+<ul>
+<li>local variable: difined by <code>local</code> statement, scope: the function in which it is defined</li>
+<li>global variable: default, scope: the shell(not including child shells) </li>
+<li>environment variable: defined by <code>export</code> command, scope: the shell(including child shells)</li>
+</ul>
+<p>( from<a target="_blank" rel="noopener" href="https://ningyuwhut.github.io/cn/2019/06/share-shell-variable-between-scripts">ningyuwhut’s blog</a>)</p>
+<p>Figuring out these three kinds of variable helps a lot in solving the probelms above.</p>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>I used three shell scripts to show it.</p>
+<ol>
+<li>child_globalconfig.sh<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is child_globalconfig.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line">srcp=<span class="string">&quot;successful&quot;</span></span><br><span class="line"><span class="built_in">export</span> envp=<span class="string">&quot;SUCCESSFUL&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>2.childShell.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is childShell.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;here is the child shell to show the advantage of using export to create environment parameter.&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;envp: <span class="variable">$envp</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;srcp: <span class="variable">$srcp</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.parentShell.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#It is parentShell.sh</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author: LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-07</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;here is the parent shell&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;load the config by source&quot;</span></span><br><span class="line"><span class="built_in">source</span> ./child_globalconfig.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;parent shell tries to echo the srcp and envp&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;envp: <span class="variable">$envp</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;srcp: <span class="variable">$srcp</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;child shell(by bash)&quot;</span></span><br><span class="line">bash ./childShell.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;---&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;child shell(by source)&quot;</span></span><br><span class="line"><span class="built_in">source</span> ./childShell.sh</span><br></pre></td></tr></table></figure>
+<p>4.Running the <code>parentShell.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ bash parentShell.sh</span><br><span class="line">---</span><br><span class="line">here is the parent shell</span><br><span class="line">load the config by <span class="built_in">source</span></span><br><span class="line">---</span><br><span class="line">parent shell tries to <span class="built_in">echo</span> the srcp and envp</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: successful</span><br><span class="line">---</span><br><span class="line">child shell(by bash)</span><br><span class="line">here is the child shell to show the advantage of using <span class="built_in">export</span> to create environment parameter.</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: </span><br><span class="line">---</span><br><span class="line">child shell(by <span class="built_in">source</span>)</span><br><span class="line">here is the child shell to show the advantage of using <span class="built_in">export</span> to create environment parameter.</span><br><span class="line">envp: SUCCESSFUL</span><br><span class="line">srcp: successful</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/07/sharement-of-paremeters-between-shell-scripts/" data-id="cl6l23unx000lbp26eywdf24q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GAN-learning" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/01/14/GAN-learning/" class="article-date">
+  <time datetime="2022-01-14T06:47:22.000Z" itemprop="datePublished">2022-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/14/GAN-learning/">GAN_learning(PLAN)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-GAN"><a href="#What-is-GAN" class="headerlink" title="What is GAN?"></a>What is GAN?</h1><p><em>GAN</em> is the abbreviation of <em>Generative Adversarial Network</em>.It is a model of <strong>structure learning</strong></p>
+<h1 id="Why-do-I-learn-GAN"><a href="#Why-do-I-learn-GAN" class="headerlink" title="Why do I learn GAN?"></a>Why do I learn GAN?</h1><p>GAN caught my attention when I read a paper about designing drugs causing desired transciptome change by <em>Bidirectional Adversarial Autoencoder(BiAA)</em>.Then I became interesting in the base the BiAA built upon,which is <em>GAN</em> and <em>Autoencoder</em>.</p>
+<p><em>cited from doi:10.3389/fphar.2020.00269</em></p>
+<blockquote>
+<p>Gene expression profiles are useful for assessing the efficacy and side effects of drugs. In this paper, we propose a new generative model that infers drug molecules that could induce a desired change in gene expression.</p>
+</blockquote>
+<p>Here are the reason why I want to study further and deeper about this model</p>
+<ul>
+<li>The model’s structure is interesting which contains a generator and a discriminator that help with each other. </li>
+<li>It is becoming more and more popular at a crazy speed.(Though many variations of it exist,it seems that no huge breakthough is made.)</li>
+<li>It may help with the exploration of a brand new way of drug design.</li>
+<li>The teacher Hongyi Li is so interesting.</li>
+</ul>
+<h1 id="Things-I-want-to-learn-about-GAN"><a href="#Things-I-want-to-learn-about-GAN" class="headerlink" title="Things I want to learn about GAN"></a>Things I want to learn about GAN</h1><ul>
+<li>how it works by mathematic</li>
+<li>the already-realized and promising application of it</li>
+<li>how to use it in the field of medicine and how to make it more useful and dependable</li>
+</ul>
+<h1 id="Things-I-need-to-do"><a href="#Things-I-need-to-do" class="headerlink" title="Things I need to do"></a>Things I need to do</h1><ul>
+<li>Learning the online courses by Hongyi Li</li>
+<li>Read and try to understand the source code of <a target="_blank" rel="noopener" href="https://github.com/insilicomedicine/BiAAE.git">BiAA</a></li>
+<li>Add BiAA to my software or come up with a better model</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/14/GAN-learning/" data-id="cl6l23unu0006bp26ak22bux9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/01/14/hello-hexo/" class="article-date">
+  <time datetime="2022-01-14T05:30:52.000Z" itemprop="datePublished">2022-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/14/hello-hexo/">hello hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Header-1-test"><a href="#Header-1-test" class="headerlink" title="Header 1 test"></a>Header 1 test</h1><h2 id="Header-2-test"><a href="#Header-2-test" class="headerlink" title="Header 2 test"></a>Header 2 test</h2><h3 id="Header-3-test"><a href="#Header-3-test" class="headerlink" title="Header 3 test"></a>Header 3 test</h3><p><em>italic test</em></p>
+<p><em>bold test</em>_</p>
+<p><a href="google.com">url test(google.com-failed)</a><br><a href="www.google.com">url test(www.google.com-failed)</a><br><a target="_blank" rel="noopener" href="https://www.google.com/">url test(https://www.google.com)</a></p>
+<ul>
+<li>unordered</li>
+<li>list</li>
+<li>test</li>
+</ul>
+<ol>
+<li>ordered</li>
+<li>list </li>
+<li>test</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/14/hello-hexo/" data-id="cl6l23unw000gbp26cgek68pq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/01/14/test/" class="article-date">
+  <time datetime="2022-01-14T05:25:12.000Z" itemprop="datePublished">2022-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/14/test/">test</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/14/test/" data-id="cl6l23unx000nbp261v2038l2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

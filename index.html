@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="LeafLight">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-HimmelblauOptimization_Practice_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="What-is-Himmelbau-Function"><a href="#What-is-Himmelbau-Function" class="headerlink" title="What is Himmelbau Function?"></a>What is Himmelbau Function?</h2><p>It is a function of two variables. It has a bowl-like 3d shape and four points which all have a minimum value of zero. This is a function wildly used to examine a optimization algorithm.</p>
+<p>It can be defined in python like this.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">himmelblau</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> (x[<span class="number">0</span>] ** <span class="number">2</span> + x[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>The visualization of it can be realized by code below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">himmelblau</span>(<span class="params">x</span>):</span></span><br><span class="line">	<span class="keyword">return</span> (x[<span class="number">0</span>] ** <span class="number">2</span> + x[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br><span class="line">x = np.arange(-<span class="number">6</span>, <span class="number">6</span>, <span class="number">0.1</span>)</span><br><span class="line">y = np.arange(-<span class="number">6</span>, <span class="number">6</span>, <span class="number">0.1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;x, y range:&#x27;</span>, x.shape, y.shape)</span><br><span class="line">X, Y = np.meshgrid(x,y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;X, Y maps:&#x27;</span>, X.shape, Y.shape)</span><br><span class="line"></span><br><span class="line">Z = himmelblau([X,Y])</span><br><span class="line"></span><br><span class="line">fig = plt.figure(<span class="string">&#x27;himmelblau&#x27;</span>)</span><br><span class="line">ax = fig.gca(projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line">ax.plot_surface(X, Y, Z)</span><br><span class="line">ax.view_unit(<span class="number">60</span>, -<span class="number">30</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">plt.show</span><br></pre></td></tr></table></figure>
+
+<h2 id="The-purpose-of-this-practice"><a href="#The-purpose-of-this-practice" class="headerlink" title="The purpose of this practice"></a>The purpose of this practice</h2><ul>
+<li><p>Use a Gradient Descent to find the minimum of the function.</p>
+</li>
+<li><p>Have a deeper understanding of the truth that the initialization of a GD model is important.</p>
+</li>
+</ul>
+<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p>(in x/code/py)</p>
+<p>Learning from <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1US4y1M7fg?p=46">bilibili: the best pytorch tutorial of 2021</a><br>This script didn’t use auto <em>optimizer</em>, which aims to use less module-source feature.It causes some problems, which help me understand how <em>pytorch</em> works.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/python3</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author:LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-18</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">himmelblau</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (x[<span class="number">0</span>] ** <span class="number">2</span> + x[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line"><span class="comment">#visualization,which is not required in this script</span></span><br><span class="line"><span class="comment">##x = np.arange(-6, 6, 0.1)</span></span><br><span class="line"><span class="comment">##y = np.arange(-6, 6, 0.1)</span></span><br><span class="line"><span class="comment">##print(&#x27;x, y range:&#x27;, x.shape, y.shape)</span></span><br><span class="line"><span class="comment">##X, Y = np.meshgrid(x,y)</span></span><br><span class="line"><span class="comment">##print(&#x27;X, Y maps:&#x27;, X.shape, Y.shape)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##Z = himmelblau([X,Y])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show the visualization of Himmelblau function </span></span><br><span class="line"><span class="comment">##fig = plt.figure(&#x27;himmelblau&#x27;)</span></span><br><span class="line"><span class="comment">##ax = fig.gca(projection=&#x27;3d&#x27;)</span></span><br><span class="line"><span class="comment">##ax.plot_surface(X, Y, Z)</span></span><br><span class="line"><span class="comment">##ax.view_init(60, -30)</span></span><br><span class="line"><span class="comment">##ax.set_xlabel(&#x27;x&#x27;)</span></span><br><span class="line"><span class="comment">##ax.set_ylabel(&#x27;y&#x27;)</span></span><br><span class="line"><span class="comment">##plt.show()</span></span><br><span class="line"><span class="comment">#end of the visualization</span></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Input: A pair of initialization of x,y of Himmelblau function</span></span><br><span class="line">point = [<span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">point[<span class="number">0</span>] = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;a list of initialization list for the model(x):&quot;</span>))</span><br><span class="line">point[<span class="number">1</span>] = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;a list of initialization list for the model(y):&quot;</span>))</span><br><span class="line">t_point = torch.tensor(point, requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># learning rate </span></span><br><span class="line">lr = <span class="number">1e-4</span></span><br><span class="line"><span class="comment"># A loop of 2e4 epoches</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20000</span>):</span><br><span class="line">    <span class="comment"># loop: calculate the function&#x27;s value   </span></span><br><span class="line">    value = (t_point[<span class="number">0</span>] ** <span class="number">2</span> + t_point[<span class="number">1</span>] -<span class="number">11</span>) ** <span class="number">2</span> + (t_point[<span class="number">0</span>] + t_point[<span class="number">1</span>] ** <span class="number">2</span> - <span class="number">7</span>) ** <span class="number">2</span></span><br><span class="line">    <span class="comment"># loop: calculate the grad</span></span><br><span class="line">    value.backward()</span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">2e2</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># loop: show the value</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;epoch: &quot;</span>, epoch, <span class="string">&quot;, x: &quot;</span>, t_point[<span class="number">0</span>], <span class="string">&quot;, y:&quot;</span>, t_point[<span class="number">1</span>], <span class="string">&quot;, value: &quot;</span>, value.data) </span><br><span class="line">    <span class="keyword">if</span> value != <span class="number">0</span>: </span><br><span class="line">        <span class="comment"># loop: update the x,y</span></span><br><span class="line">        t_point.data[<span class="number">0</span>] = t_point.data[<span class="number">0</span>] - t_point.grad[<span class="number">0</span>] * lr</span><br><span class="line">        t_point.data[<span class="number">1</span>] = t_point.data[<span class="number">1</span>] - t_point.grad[<span class="number">1</span>] * lr</span><br><span class="line">        <span class="comment"># reset the grad.</span></span><br><span class="line">        t_point.grad.zero_()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;____________________&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;final: &quot;</span>,value)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;x: &quot;</span>,t_point[<span class="number">0</span>].data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;y: &quot;</span>,t_point[<span class="number">1</span>].data)</span><br></pre></td></tr></table></figure>
+<h2 id="Some-problems"><a href="#Some-problems" class="headerlink" title="Some problems"></a>Some problems</h2><ol>
+<li>Take care of overflow error, especially when using high power.(Maximum of int64tensor: 2 ^ 63 - 1)</li>
+<li>When changing the value of a tensor that requires grad. ,assign the value to <code>tensor1.data</code> instead of to <code>tensor1</code> directly, which will cause the <strong>Error</strong>, <code>Leaf variable was used in a inplace operation</code></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/" data-id="cl6l23unu0007bp26atx4ejfx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Pokemon_dataset_load_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Method and Data from:<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fT4y1d7av?p=99">Bilibili Online Course of Pytorch by Liangqu Long-p99</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>In the practice of kinds of neural networks before, data used to train the networks is provided by “MNIST” or “CIFAR” and so on, which can be loaded by pytorch easily. The convenice of loading results from the powerful pytorch utilities.</p>
+<p>But more often than not, we need to use our own dataset, which means there isn’t any completed utilities provided by pytorch utilities.</p>
+<p>Some might say that we can load the data by our own scripts, which just needs to do the work of dataloading, shuffling, train-val-test slicing, batch seperation and so on.(In my recent work about SMILEs, I used this ‘mannual’ method.)</p>
+<p>To the data that restored in one single file like a csv file, it is easy. But when the data structure is more complex like images which are restored in differnt files in different filefold, the ‘manual’ way may be a little troublesome.</p>
+<p>Fortunately, Pytorch provides a useful <code>class</code> called <code>Dataset</code> used to load the data.</p>
+<h2 id="torch-utils-data-Dataset"><a href="#torch-utils-data-Dataset" class="headerlink" title="torch.utils.data.Dataset"></a>torch.utils.data.Dataset</h2><p>Just like <code>torchvision.datasets.MNIST</code> or some other datasets supported by Pytorch, the dataset we used can satisfy most of the functions we need only if we create a class inheriting from <code>torch.utils.data.Dataset</code> for it.</p>
+<p>Let’s use the dataset of Pokemon as example, which has a structure of:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pokemon(Filefold)-------|- Pokemon1 ----|-picture1.jpg</span><br><span class="line">			|		|-picture2.png</span><br><span class="line">			|		|-...</span><br><span class="line">			|</span><br><span class="line">			|- Pokemon2</span><br><span class="line">			|- Pokemon3</span><br><span class="line">			|- ...</span><br></pre></td></tr></table></figure>
+
+<p>Import:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> csv</span><br></pre></td></tr></table></figure>
+
+<h3 id="Inherit-from-Dataset"><a href="#Inherit-from-Dataset" class="headerlink" title="Inherit from Dataset"></a>Inherit from <code>Dataset</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pokemon</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, root, resize, mode</span>):</span></span><br><span class="line">		<span class="built_in">super</span>(Pokemon, self).__init__()</span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self,</span>):</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>In the codes above, three methods of the class <code>Pokemon</code> were defined. They are the methods that are necessary to realize. The explanation of them:</p>
+<ol>
+<li><code>__init__</code>: Some initialization work</li>
+<li><code>__len__</code>: return the length of the dataset</li>
+<li><code>__getitem__</code>: return the item of specific index from the dataset</li>
+</ol>
+<h3 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h3><p>To realize <code>__len__</code> and <code>__getitem__</code> easily, proper initialization is important. And we need to realize some simple options when initialization. You may notice there are some parameters in the codes above like <code>root</code>. Here are their explanation:</p>
+<ol>
+<li><p><code>root</code>: the root dir of the dataset</p>
+</li>
+<li><p><code>resize</code>: the size to transform the image in the dataset into</p>
+</li>
+<li><p><code>mode</code>: ‘train’, ‘val’ or ‘test’</p>
+</li>
+<li><p>self.xxx</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init___</span>(<span class="params">self, root, resize, mode</span>):</span></span><br><span class="line">	<span class="built_in">super</span>(Pokemon, self).__init__()</span><br><span class="line">	self.root = root</span><br><span class="line">	self.resize = resize</span><br><span class="line">	self.mode = mode</span><br><span class="line"></span><br><span class="line">	self.name2label = &#123;&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>self.name2label</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># a dict used to store the mapping of name and label</span></span><br><span class="line">self.name2label = &#123;&#125;</span><br><span class="line"><span class="comment"># loop to fill the mapping</span></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> <span class="built_in">sorted</span>(os.listdir(os.path.join(root))):</span><br><span class="line">	<span class="comment"># skip the non-filefold file</span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(os.path.join(root, name)):</span><br><span class="line">		<span class="keyword">continue</span></span><br><span class="line">	self.name2label[name] = <span class="built_in">len</span>(self.name2label.keys())</span><br><span class="line">	<span class="comment"># label one by one</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>load the (image, label) pairs</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="comment">#lable one by one</span></span><br><span class="line">self.images, self.labels = self.load_csv(<span class="string">&#x27;images.csv&#x27;</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><code>self.load_csv</code> is a auxiliary method</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_csv</span>(<span class="params">self, filename</span>):</span></span><br><span class="line">	<span class="comment">#load all the images directly may abuse the cpu</span></span><br><span class="line">	<span class="comment">#loop over all the types and load their image_path one by one</span></span><br><span class="line">	<span class="comment">#create the csv if not existing</span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(os.path.join(self.root, filename)):</span><br><span class="line">		images = []</span><br><span class="line">		<span class="keyword">for</span> name <span class="keyword">in</span> self.name2label.keys():</span><br><span class="line">			images += glob.glob(os.path(self.root, name, <span class="string">&quot;*.png&quot;</span>))</span><br><span class="line">			images += glob.glob(os.path(self.root, name, <span class="string">&quot;*.jpg&quot;</span>))</span><br><span class="line">			images += glob.glob(os.path(self.root, name, <span class="string">&quot;*.jpeg&quot;</span>))</span><br><span class="line">		<span class="comment"># len: 1167, &#x27;/pokemon\\bulbasaur\\0000000.png&#x27;</span></span><br><span class="line">		<span class="comment"># write to the csv file</span></span><br><span class="line">		<span class="comment"># shuffle the images</span></span><br><span class="line">		random.shuffle(images)</span><br><span class="line">		<span class="comment"># weite to the csv file</span></span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(self.root, filename), mode=<span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">			writer = csv.writer(f)</span><br><span class="line">			label = self.name2label[name]</span><br><span class="line">			<span class="comment"># &#x27;pokemon\\bulbasaur\\00000.png&#x27;, 0</span></span><br><span class="line">			writer.writerow([img, label])</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;write into csv file:&quot;</span>, filename)</span><br><span class="line">	images, labels = [], []</span><br><span class="line">	<span class="comment"># read the csv if it exists</span></span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(self.root, filename)) <span class="keyword">as</span> f:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;read the csv file:&quot;</span>, filename)</span><br><span class="line">		reader = csv.reader()</span><br><span class="line">		<span class="keyword">for</span> row <span class="keyword">in</span> reader:</span><br><span class="line">			img, label = row</span><br><span class="line">			label = <span class="built_in">int</span>(label)</span><br><span class="line">			image.append(img)</span><br><span class="line">			labels.append(label)</span><br><span class="line">	<span class="keyword">assert</span> <span class="built_in">len</span>(images) == <span class="built_in">len</span>(labels)</span><br><span class="line">	<span class="keyword">return</span> images, labels</span><br></pre></td></tr></table></figure>
+<p>In the codes above, the feature of shuffling is realized by <code>random.shuffle(images)</code> easily. It is because of the fact that the labels are contained in the path of the images. In other cases, in which images and labels are seperated, <code>zip()</code> or randomize the index may solve the problem.</p>
+</li>
+<li><p>length of the data</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(self.images)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>get the item</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, idx</span>):</span></span><br><span class="line"><span class="comment"># idx: 0~len(images)</span></span><br><span class="line"><span class="comment"># self.images, self.labels</span></span><br><span class="line">img, label = self.images[idx], self.labels[idx]</span><br><span class="line"></span><br><span class="line">tf = transforms.Compose([</span><br><span class="line">	<span class="keyword">lambda</span> x : Image.<span class="built_in">open</span>(x).convert(<span class="string">&#x27;RGB&#x27;</span>), <span class="comment">#img path =&gt; data</span></span><br><span class="line">	transforms.Resize((<span class="built_in">int</span>(self.resize*<span class="number">1.25</span>), <span class="built_in">int</span>(self.resize*<span class="number">1.25</span>))),</span><br><span class="line">	transforms.RandomRotation(<span class="number">15</span>),</span><br><span class="line">	transforms.CenterCrop(self.resize),</span><br><span class="line">	transforms.ToTensor(),</span><br><span class="line">	transforms.Normalize(mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], </span><br><span class="line">                                       std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">img = tf(img)</span><br><span class="line">label = torch.tensor(label)</span><br><span class="line"><span class="keyword">return</span> img, label</span><br></pre></td></tr></table></figure></li>
+<li><p>to visualize</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">denormalize</span>(<span class="params">self, x_hat</span>):</span></span><br><span class="line">	<span class="comment"># denormalize for  visualization</span></span><br><span class="line">	mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>]</span><br><span class="line">	std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># x_hat= (x - mean)/std</span></span><br><span class="line">	<span class="comment"># x = x_hat * std + mean</span></span><br><span class="line">	<span class="comment"># x: [c, h, w]</span></span><br><span class="line">	<span class="comment"># mean: [3] =&gt; [3, 1, 1]</span></span><br><span class="line">	mean = torch.tensor(mean).unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">	std = torch.tensor(std).unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	x = x_hat * std + mean</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> x</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/Pokemon_dataset_load_WorkFlow/" data-id="cl6l23unu0009bp2666gh61z8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-PythonNote" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/PythonNote/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/PythonNote/">Python Learning Note</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="2022-2-6"><a href="#2022-2-6" class="headerlink" title="2022/2/6"></a>2022/2/6</h2><h3 id="Execute-python-scripts-with-options-and-arguments"><a href="#Execute-python-scripts-with-options-and-arguments" class="headerlink" title="Execute python scripts with options and arguments"></a>Execute python scripts with options and arguments</h3><p>learning from <a target="_blank" rel="noopener" href="https://www.runnoob.com/python3-command-line-arguments.html">runnoob</a></p>
+<p>Key:</p>
+<ol>
+<li>Importing two modules: <code>sys</code> and <code>getopt</code></li>
+<li>Create a loop structure to get the opt. and arg.</li>
+</ol>
+<p>It can promote the interaction between python and shell scripts.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># learning from runnoob.com/python3/python3-command-line-arguments.html</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> getopt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Eadd</span>():</span></span><br><span class="line">    NAME = <span class="literal">None</span></span><br><span class="line">    DESCRIPTION = <span class="literal">None</span></span><br><span class="line">    <span class="comment"># skip the first arg. : the name of this script </span></span><br><span class="line">    argv = sys.argv[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># short options mode</span></span><br><span class="line">        opts, args = getopt.getopt(argv, <span class="string">&#x27;N:M:&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Error&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> opt,val <span class="keyword">in</span> opts:</span><br><span class="line">        <span class="keyword">if</span> opt <span class="keyword">in</span> [<span class="string">&#x27;-N&#x27;</span>]:</span><br><span class="line">            NAME = val</span><br><span class="line">        <span class="keyword">elif</span> opt <span class="keyword">in</span> [<span class="string">&#x27;-M&#x27;</span>]:</span><br><span class="line">            DESCRIPTION = val</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;argv(skip the first arg.)&#x27;</span>,argv,<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;NAME:&#x27;</span>, NAME, <span class="string">&#x27;DESCRIPTION:&#x27;</span>, DESCRIPTION, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;args(getopt)&#x27;</span>, args, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">Eadd()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2022-2-8"><a href="#2022-2-8" class="headerlink" title="2022/2/8"></a>2022/2/8</h2><h3 id="Get-the-size-creation-time-access-time-modification-time-of-file"><a href="#Get-the-size-creation-time-access-time-modification-time-of-file" class="headerlink" title="Get the size, creation time, access time, modification time of file"></a>Get the size, creation time, access time, modification time of file</h3><p>from <a target="_blank" rel="noopener" href="https://www.cnblogs.com/shaosks/p/5614630.html">cnblogs</a><br>0. Get the time stamp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">timestamp = time.time()</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Change the time stamp into time:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TimeStampToTime</span>(<span class="params">timestamp</span>):</span></span><br><span class="line">	timeStruct = time.localtime(timestamp)</span><br><span class="line">	<span class="keyword">return</span> time.strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>,timeStruct)</span><br></pre></td></tr></table></figure>
+<p>or an easier way:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localtime = time.asctime(time.localtime(time.time))</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the size of a file(MB)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileSize</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	fsize = os.path.getsize(filePath)</span><br><span class="line">	fsize = fsize/<span class="built_in">float</span>(<span class="number">1024</span>*<span class="number">1024</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">round</span>(fsize, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the access time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileAccessTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getatime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the creation time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileCreateTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getctime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+<li><p>Get the modification time of a file</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_FileModifyTime</span>(<span class="params">filePath</span>):</span></span><br><span class="line">	filePath = unicode(filePath,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	t = os.path.getmtime(filePath)</span><br><span class="line">	<span class="keyword">return</span> TimeStampToTime(t)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/PythonNote/" data-id="cl6l23unv000abp26aozn707x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-RNN_practice_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/RNN_practice_WorkFlow/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p><strong>RNN</strong> is the abbreviation of <em>recurrent neural network</em>. What makes it special is the <em>memory unit</em>(h) in its structure, which connects all the operations of one single layer like a chain.</p>
+<p>Let’s do a comparison between RNN and CNN. In one layer of CNN, though every convolutional operation cares about local correlationship, each of them is independent of one another. In one layer of RNN, every operation will receive the linear operated result of last operation. It makes the output of the layer consider of the whole input instead of part of it. Though it makes RNN have some defects about gradients.</p>
+<h2 id="RNN-in-pytorch"><a href="#RNN-in-pytorch" class="headerlink" title="RNN in pytorch"></a>RNN in pytorch</h2><p>There are generally two ways of building a RNN layer.</p>
+<ol>
+<li><code>nn.RNN()</code></li>
+<li><code>nn.RNNCell()</code></li>
+</ol>
+<p>Using the first way is convenient while the second way provides us more control of details of the network.</p>
+<p>Here are some examples.</p>
+<ol>
+<li><code>nn.RNN()</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">form torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line">x = torch.randn(num_words, batch, x_feature)</span><br><span class="line">rnn = nn.RNN(</span><br><span class="line">	input_size=x_feature, </span><br><span class="line">	hidden_size=h_feature, </span><br><span class="line">	num_layers=numlayers, </span><br><span class="line">	batch_first=<span class="literal">False</span>)</span><br><span class="line">o, h = rnn(x)</span><br><span class="line">o.shape</span><br><span class="line"><span class="comment">#torch.Size([num_words, batch, h_feature])</span></span><br><span class="line">h.shape</span><br><span class="line"><span class="comment">#torch.Size([num_layers, batch, h_feature])</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>There is something strange in the codes above. Because <code>batch</code> is not the first dim of the input, and there is a <code>batch_first=False</code> by default.<br>It makes sense when you figure out how RNN works, or you can just insist on the batch-first-style input by setting <code>batch_first=True</code> manually.<br>Another thing that catches our sight is that there are two outputs generated by RNN. <code>o</code> is the output of all the operations of the last layer, so it has the same first dim with the input. <code>h</code> is the last time of operation’s output of every layer, so it has the first dim  the same with the number of layers of the RNN.</p>
+<ol start="2">
+<li><code>nn.RNNCell()</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line">x = torch.randn(num_words, batch, x_feature)</span><br><span class="line">rnn_cell = nn.RNNCell(</span><br><span class="line">	input_size =x_feature,</span><br><span class="line">	hidden_size=h_feature</span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">h_0 = torch.randn(batch, h_feature)</span><br><span class="line">output = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(x.shape[<span class="number">0</span>]):</span><br><span class="line">	h_0 = rnn_cell(x[i], h_0)</span><br><span class="line">	output.append(h_0)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>Understand of the structure above helps the understand of RNN. What the RNNCell do is one single operation of one layer of RNN without reccurent. So we need to update <code>h_0</code> mannually to do the job of recurrent. </p>
+<p>The structure and theory of RNN is not difficult to understand but easy to mistake and forget. And there are some brilliant ways to build a flexible RNN since it has high flexibility.</p>
+<h2 id="the-flexibility-of-nn-RNN"><a href="#the-flexibility-of-nn-RNN" class="headerlink" title="the flexibility of nn.RNN"></a>the flexibility of <code>nn.RNN</code></h2><p>When using <code>nn.Linear</code>, <code>nn.Conv2d</code> and many other <code>nn</code> layers of pytorch learned before, we can easily notice that these layers don’t care about the <code>batch</code> dim of the input with a shape of <code>[batch, channel, h, w]</code>. It is the advantage of Pytorch which makes the network flexible.</p>
+<p>When using <code>nn.RNN</code> with a input with a shape of <code>[num_time_steps, batch, input_feature]</code>, we can find that <code>nn.RNN</code> only cares about the dim of <code>input_feature</code>, which means we can do something “magical” if we use our imagination.</p>
+<h2 id="Workflow-of-the-practice"><a href="#Workflow-of-the-practice" class="headerlink" title="Workflow of the practice"></a>Workflow of the practice</h2><ol>
+<li>data: <code>sin</code> in numpy</li>
+<li>input: 50 continuous value</li>
+<li>pred: next 1 time step’s 50 continuous points’ value </li>
+</ol>
+<p>data:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">num_time_steps = <span class="number">50</span></span><br><span class="line">start = np.random.randint(<span class="number">3</span>, size=<span class="number">1</span>)</span><br><span class="line">time_steps = np.linspace(start, start +<span class="number">10</span>, num_time_steps)</span><br><span class="line">data = np.sin(time_steps)</span><br><span class="line">data = data.reshape(num_time_steps, <span class="number">1</span>)</span><br><span class="line">x = torch.tensor(data[:-<span class="number">1</span>]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">y = torch.tensor(data[<span class="number">1</span>:]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># in this case, we use batch_first=True in the RNN </span></span><br><span class="line"><span class="comment"># data[:-1] will select all the elements of the array except the last one</span></span><br><span class="line"><span class="comment"># data[1:]  all the elements except the first one(0)</span></span><br></pre></td></tr></table></figure>
+<p>Network:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, </span>):</span></span><br><span class="line">		<span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line">		self.rnn = nn.RNN(</span><br><span class="line">			input_size=<span class="number">1</span>,</span><br><span class="line">			hidden_size=<span class="number">10</span>,</span><br><span class="line">			num_layers=<span class="number">1</span>,</span><br><span class="line">			batch_first=<span class="literal">True</span>,</span><br><span class="line">			)</span><br><span class="line">		self.linear = nn.Linear(<span class="number">10</span>, <span class="number">1</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x, hidden_prev</span>):</span></span><br><span class="line">		out, hidden_prev = self.rnn(x, hidden_prev)</span><br><span class="line">		<span class="comment"># flatten</span></span><br><span class="line">		out = out.view(-<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">		out = nn.linear(out)</span><br><span class="line">		<span class="comment"># unsqueeze batch&#x27;s dim</span></span><br><span class="line">		out = out.unsqueeze(dim=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> out, hidden_prev</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
+
+<p>train:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line">		self.rnn = nn.RNN(</span><br><span class="line">			input_size=<span class="number">1</span>,</span><br><span class="line">			hidden_size=<span class="number">10</span>,</span><br><span class="line">			num_layers=<span class="number">2</span>,</span><br><span class="line">			batch_first=<span class="literal">True</span></span><br><span class="line">		)</span><br><span class="line">		self.linear = nn.Linear(<span class="number">10</span>, <span class="number">1</span>)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x, hidden_prev</span>):</span></span><br><span class="line">		<span class="comment"># x: [1, time_steps, input_feature]</span></span><br><span class="line">		out, hidden_prev = self.rnn(x, hidden_prev)</span><br><span class="line">		<span class="comment"># out: [1, time_steps, hidden_feature]</span></span><br><span class="line">		<span class="comment"># hidden_prev: [1, num_layers, hidden_feature]</span></span><br><span class="line">		out = out.view(-<span class="number">1</span>, hidden_feature)</span><br><span class="line">		<span class="comment"># out: [time_steps * batch, hidden_feature]</span></span><br><span class="line">		out = self.linear(out)</span><br><span class="line">		<span class="comment"># out: [time_steps * batch, 1]</span></span><br><span class="line">		out = out.unsqueeze(dim=<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> out, hidden_prev</span><br><span class="line"></span><br><span class="line">model = Net()</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>)</span><br><span class="line">hidden_prev = torch.zeros(<span class="number">1</span>, <span class="number">2</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment">#h0: [batch, num_layers, hidden_feature]</span></span><br><span class="line">num_time_steps = <span class="number">50</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6000</span>):</span><br><span class="line">	start = np.random.randint(<span class="number">3</span>, size=<span class="number">1</span>)</span><br><span class="line">	time_steps = np.linspace(start, start + <span class="number">10</span>, num_time_steps)</span><br><span class="line">	data = np.sin(time_steps)</span><br><span class="line">	x = torch.tensor(data[:-<span class="number">1</span>]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps -<span class="number">1</span> ,<span class="number">1</span>)</span><br><span class="line">	y = torch.tensor(data[<span class="number">1</span>:]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	output, hidden_prev = model(x, hidden_prev)</span><br><span class="line">	hidden_prev = hidden_prev.detach()</span><br><span class="line">	<span class="comment"># .detach() set the requires_grad=False of hidden_prev forever</span></span><br><span class="line">	<span class="comment"># Here I can not understand of the action of not clear the hidden_prev of the current loop</span></span><br><span class="line">	</span><br><span class="line">	loss = criterion(output, y)</span><br><span class="line">	optimizer.zero_grad()</span><br><span class="line">	loss.backward()</span><br><span class="line">	optimizer.step()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">iter</span>%<span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;iter:&#123;&#125;, loss:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">iter</span>, loss.item()))</span><br><span class="line"></span><br><span class="line">prediction = []</span><br><span class="line">start = np.random.randint(<span class="number">3</span>, size=<span class="number">1</span>)</span><br><span class="line">time_steps = np.linspace(start, start + <span class="number">10</span>, num_time_steps)</span><br><span class="line">data = np.sin(time_steps)</span><br><span class="line">x = torch.tensor(data[]).<span class="built_in">float</span>().view(<span class="number">1</span>, num_time_steps - <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">input</span> = x[:, <span class="number">0</span>, :]</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(x.shape[<span class="number">1</span>]):</span><br><span class="line">	<span class="built_in">input</span> = <span class="built_in">input</span>.view(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">	pred, hidden_prev = model(<span class="built_in">input</span>, hidden_prev)</span><br><span class="line">	<span class="built_in">input</span> = pred</span><br><span class="line">	<span class="comment"># update the input for predicting the next y</span></span><br><span class="line">	predictions.append(pred.detach().numpy.ravel()[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>We have mentioned the flexibility of RNN about input before. In the prediction part of the codes above, we can notice that we can take control of the shape of the output by proper manipulation.<br>The prediction codes above, we reshape the output by manual updation of <code>hidden_prev</code> and <code>input</code>, <code>append</code> and loop. There are some details that I am not very clear about, like <code>.detach()</code>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/RNN_practice_WorkFlow/" data-id="cl6l23unv000cbp2664wjaxu6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Transformer_learning" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/Transformer_learning/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Transformer-Abstract"><a href="#Transformer-Abstract" class="headerlink" title="Transformer Abstract"></a>Transformer Abstract</h2><p><em>Transformer</em> is a well-known neural network architecture, I have learned about this before from Mu Li’s <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pu411o7BE">video on bilibili</a>. The video is brief but cover the details about the attention mechanism the <em>Transformer</em> uses. </p>
+<p>However, When I want to practice using Pytorch code following another <a target="_blank" rel="noopener" href="https://m.bilibili.com/video/BV19Y411b7qx">video</a>, the training way of Transformer is a little different with normal CNN. It is like RNN or LSTM, but I am not very familiar with NLP and associated architectures.</p>
+<h2 id="Transformer-training"><a href="#Transformer-training" class="headerlink" title="Transformer training"></a>Transformer training</h2><p>In the practice video above, what confused me is <em>p9</em>(the 9th video). </p>
+<p>Q1: The video’s task is translation between language <em>x</em> and <em>y</em>. But the shape of <em>x sentence</em> is <code>[b, 50, e]</code> while that of <em>y sentence</em> is <code>[b, 51, e]</code>. </p>
+<p>Q2: Then when training the model <code>y[:, :-1, :]</code> was used as target, while <code>y[:, 1:, :]</code> was used to do loss calculation.</p>
+<p>Q3: When using the model to do <code>pred(x)</code>(which returns y, referred as <code>out</code> to avoid mistaking), the <code>out</code> was generated one word by one word.</p>
+<h2 id="Understanding"><a href="#Understanding" class="headerlink" title="Understanding"></a>Understanding</h2><p>A1: It’s for the convenience of slicing. The reason for slicing is to do things about Q2.</p>
+<p>A2: You may notice that by the special way of slicing, the target and loss label were one-position crossing. With the help of <code>tril_mask</code>, the model is able to learn to predict the next word given the preceding word.</p>
+<p>A3: Since its ability is to predict the next one word, the model has to do prediction in this way.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/Transformer_learning/" data-id="cl6l23unw000ebp2638o91cui" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/hello-world/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/hello-world/" data-id="cl6l23unw000hbp267v1k6jk9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ClassificationAndMNIST" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/ClassificationAndMNIST/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.727Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MachineLearning/">MachineLearning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/ClassificationAndMNIST/">Classification and MNIST dataset</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="About-the-input"><a href="#About-the-input" class="headerlink" title="About the input:"></a>About the input:</h2><p>It is a famous dataset of Human-writed number pictures used for deep learning.</p>
+<ul>
+<li>size of one picture: 28x28(pixels)</li>
+<li>quantity: 7000 per Number(0~9) (7kx10)</li>
+</ul>
+<h2 id="About-the-output"><a href="#About-the-output" class="headerlink" title="About the output:"></a>About the output:</h2><p>If we simply use 0<del>9 to represent the result of prediction of our model, it results in a problem that 0</del>9 are quantitive variables. To avoid it, Here is a new method called <strong>One-Hot</strong>, which is useful in classification.</p>
+<h3 id="One-Hot"><a href="#One-Hot" class="headerlink" title="One-Hot"></a>One-Hot</h3><h4 id="Representation"><a href="#Representation" class="headerlink" title="Representation"></a>Representation</h4><p>It is an special encoding method, which use a matrix(usually has an dimension of 1xn) to represent a categorical variable.</p>
+<p>Here comes an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">red = [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">blue = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">yellow = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#So we can use [1,0,0,0,0,0,0,0,0,0] to represent &#x27;0&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Evaluation-loss-calculation"><a href="#Evaluation-loss-calculation" class="headerlink" title="Evaluation(loss calculation)"></a>Evaluation(<em>loss</em> calculation)</h4><p>As to calculate the <em>loss</em> of the model, <em>Euclidean distance</em> is used(because the result of One-Hot Matrix in this model has a dimension of 10x1, which means <em>Euclidean distance</em> is proper).</p>
+<p><em>here remains a question– why Euclidean distance is not proper for all kinds of data</em></p>
+<p>Here comes an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Real_label = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">Pred = [<span class="number">0.9</span>, <span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.1</span>]</span><br><span class="line">loss =<span class="built_in">sum</span>([<span class="built_in">pow</span>(Real_label[i]-Pred[i],<span class="number">2</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">4</span>)]) </span><br></pre></td></tr></table></figure>
+
+<h2 id="About-the-model"><a href="#About-the-model" class="headerlink" title="About the model:"></a>About the model:</h2><h3 id="Sigmoid-function-and-ReLU-function"><a href="#Sigmoid-function-and-ReLU-function" class="headerlink" title="Sigmoid function and ReLU function:"></a>Sigmoid function and ReLU function:</h3><ul>
+<li>Sigmoid function:<br><img src="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/1200/1*a04iKNbchayCAJ7-0QlesA.png&imgrefurl=https://medium.com/@toprak.mhmt/activation-functions-for-deep-learning-13d8b9b20e&tbnid=Zl9O5xKIlo6tvM&vet=12ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ..i&docid=HgiWI3njmHtosM&w=1200&h=630&itg=1&q=Sigmoid%20function&hl=en-US&client=ubuntu&ved=2ahUKEwjH99qG-tb1AhXYqnIEHciXB-oQMygBegUIARDaAQ" alt="Sigmoid function"></li>
+</ul>
+<p>$$ h_ \theta (x) =  \frac{\mathrm{1} }{\mathrm{1} + e^- \theta^Tx }  $$</p>
+<ul>
+<li>ReLU function:<br><img src="https://www.google.com/imgres?imgurl=https://miro.medium.com/max/357/1*oePAhrm74RNnNEolprmTaQ.png&imgrefurl=https://medium.com/@kanchansarkar/relu-not-a-differentiable-function-why-used-in-gradient-based-optimization-7fef3a4cecec&tbnid=0UdUiZ4X2VLDiM&vet=12ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ..i&docid=8NiVbpcoDLL_LM&w=357&h=278&itg=1&q=ReLU%20function&hl=en-US&client=ubuntu&ved=2ahUKEwifmaTS-tb1AhWHq3IEHS10CgoQMygBegUIARC-AQ" alt="ReLU function"></li>
+</ul>
+<p>$$ R(x) = max(0,x) $$</p>
+<p><em>Why they are special: We don’t use linear function because linear factor is not vey qualified to deal with complex REAL-WORLD problem(Though recognizing a hand-writing number is easy for us human beings, it is difficult to teach the machine this technique.). Sigmoid F and ReLU F have a better simulation of the nerves of human beings, which have thresholds.</em> </p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><ul>
+<li><p>$$ Objective = \sum (pred - Y) $$</p>
+</li>
+<li><p>minimize objective </p>
+</li>
+<li><p>for a new $$X$$</p>
+<ul>
+<li><p>$$[W_1,W_2,W_3]$$</p>
+</li>
+<li><p>$$[b_1,b_2,b_3]$$</p>
+</li>
+<li><p>$$pred = W_3 * \left{ W_2 \left[ W_1X + b_1\right] +b_2\right} + b_3$$</p>
+</li>
+<li><p>$$argmax(pred)$$</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>MNIST_utils.py </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_curve</span>(<span class="params">data</span>):</span></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    plt.plot(<span class="built_in">range</span>(<span class="built_in">len</span>(data)), data, color=<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">    plt.legend([<span class="string">&#x27;value&#x27;</span>], loc=<span class="string">&#x27;upper right&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;step&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;value&#x27;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_image</span>(<span class="params">img, label, name, num=(<span class="params"><span class="number">4</span>,<span class="number">4</span></span>), dataset_MU=<span class="number">0.1307</span>, dataset_SIG=<span class="number">0.3081</span></span>):</span></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num[<span class="number">0</span>]*num[<span class="number">1</span>]):</span><br><span class="line">        plt.subplot(num[<span class="number">0</span>], num[<span class="number">1</span>], i+<span class="number">1</span>)</span><br><span class="line">        plt.tight_layout()</span><br><span class="line">        plt.imshow(img[i][<span class="number">0</span>]*dataset_SIG+dataset_MU, cmap=<span class="string">&#x27;gray&#x27;</span>, interpolation=<span class="string">&#x27;none&#x27;</span>)</span><br><span class="line">        plt.title(<span class="string">&quot;&#123;&#125;:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(name, label[i].item()))</span><br><span class="line">        plt.xticks([])</span><br><span class="line">        plt.yticks([])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">one_hot</span>(<span class="params">label, depth=<span class="number">10</span></span>):</span></span><br><span class="line">    out = torch.zeros(label.size(<span class="number">0</span>), depth)</span><br><span class="line">    idx = torch.LongTensor(label).view(-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    out.scatter_(dim=<span class="number">1</span>, index=idx, value=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+
+<p>MNIST_train.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> MNIST_utils <span class="keyword">import</span> plot_image, plot_curve, one_hot</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">512</span></span><br><span class="line">dataset_MU = <span class="number">0.1307</span></span><br><span class="line">dataset_SIG = <span class="number">0.3081</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step1. load dataset</span></span><br><span class="line">train_loader = torch.utils.data.DataLoader(</span><br><span class="line">        torchvision.datasets.MNIST(<span class="string">&#x27;mnist.data&#x27;</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                                    transform=torchvision.transforms.Compose([</span><br><span class="line">                                        torchvision.transforms.ToTensor(),</span><br><span class="line">                                        torchvision.transforms.Normalize(</span><br><span class="line">                                            (dataset_MU,),(dataset_SIG,))</span><br><span class="line">                                        ])</span><br><span class="line">        ),</span><br><span class="line">        batch_size=batch_size, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">test_loader = torch.utils.data.DataLoader(</span><br><span class="line">        torchvision.datasets.MNIST(<span class="string">&#x27;mnist.data/&#x27;</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>,</span><br><span class="line">                                    transform=torchvision.transforms.Compose([</span><br><span class="line">                                        torchvision.transforms.ToTensor(),</span><br><span class="line">                                        torchvision.transforms.Normalize(</span><br><span class="line">                                            (dataset_MU,),(dataset_SIG,))</span><br><span class="line">                                        </span><br><span class="line">                                        ])</span><br><span class="line">        ),</span><br><span class="line">    batch_size=batch_size, shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">sample_x, sample_y = <span class="built_in">next</span>(<span class="built_in">iter</span>(train_loader))</span><br><span class="line"><span class="built_in">print</span>(sample_x.shape, sample_y.shape)</span><br><span class="line"><span class="comment">#Output[0]:torch.Size([512, 1, 28, 28]) torch.Size([512])</span></span><br><span class="line">plot_image(sample_x,sample_y,<span class="string">&#x27;image sample&#x27;</span>,num=(<span class="number">5</span>,<span class="number">5</span>))</span><br><span class="line"><span class="comment">#plot_image() is the function imported from MNIST_utils.py</span></span><br><span class="line"><span class="comment">#Output[1]:some hand-writing numbers&#x27; pictures(default 10)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># step2. Network model building</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Net,self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># wx+b</span></span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">28</span>*<span class="number">28</span>, <span class="number">256</span>)</span><br><span class="line">        <span class="comment"># 28*28: the pixel size of one picture in the dataset</span></span><br><span class="line">        <span class="comment"># 256: hyper para.</span></span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">256</span>, <span class="number">64</span>)</span><br><span class="line">        <span class="comment"># 256: the size of output of the prior layer</span></span><br><span class="line">        <span class="comment"># 64: hyper para.</span></span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">64</span>,<span class="number">10</span>)</span><br><span class="line">        <span class="comment"># 64: the size of output of the prior layer</span></span><br><span class="line">        <span class="comment"># 10: the size of final output</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment">#x: [b, 1, 28, 28]</span></span><br><span class="line">        <span class="comment">#h1 = relu(w1x+b1)</span></span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        <span class="comment">#h2 = relu(w2h1+b2)</span></span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        <span class="comment">#h3 = (w3h2+b3)</span></span><br><span class="line">        x = self.fc3(x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"><span class="comment">#initialize the network</span></span><br><span class="line">net = Net()</span><br><span class="line"><span class="comment">#[w1, w2, w3, b1, b2, b3]</span></span><br><span class="line">optimizer = optim.SGD(net.parameters(), lr=<span class="number">0.01</span>, momentum=<span class="number">0.9</span> )</span><br><span class="line"><span class="comment">#para. used to plot the loss_step plot</span></span><br><span class="line">train_loss = []</span><br><span class="line"><span class="comment"># step3. Training</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="comment">#3 times of traversal of the train set</span></span><br><span class="line">    <span class="keyword">for</span> batch_idx, (x, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):</span><br><span class="line">        <span class="comment">#print(x.shape, y.shape)</span></span><br><span class="line">        <span class="comment">#Output[2]: x:[b, 1, 28, 28], y:[512]</span></span><br><span class="line">        <span class="comment"># [b, 1, 28, 28] =&gt; [b, feature]</span></span><br><span class="line">        x = x.view(x.size(<span class="number">0</span>), <span class="number">28</span>*<span class="number">28</span>)</span><br><span class="line">        <span class="comment"># =&gt;[b, 10]</span></span><br><span class="line">        out = net(x)</span><br><span class="line">        <span class="comment"># [b, 10]</span></span><br><span class="line">        y_onehot = one_hot(y)</span><br><span class="line">        <span class="comment"># loss = mse(out, y_onehot)</span></span><br><span class="line">        loss = F.mse_loss(out, y_onehot)</span><br><span class="line">        <span class="comment"># clean the gradient</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        <span class="comment"># calculate the gradient</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="comment"># update the gradient</span></span><br><span class="line">        <span class="comment">#w&#x27; = w- lr*grad</span></span><br><span class="line">        optimizer.step()</span><br><span class="line">        <span class="comment">#para. &#x27;loss&#x27; is a tensor object, use .item() to convert it to numpy object</span></span><br><span class="line">        train_loss.append(loss.item())</span><br><span class="line">        <span class="keyword">if</span> batch_idx % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(epoch, batch_idx, loss.item())</span><br><span class="line"><span class="comment"># we get the optimal [w1, b1, w2, b2, w3, b3]</span></span><br><span class="line">plot_curve(train_loss)</span><br><span class="line"></span><br><span class="line"><span class="comment"># step4. test</span></span><br><span class="line">total_correct = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x,y <span class="keyword">in</span> test_loader:</span><br><span class="line">    x = x.view(x.size(<span class="number">0</span>), <span class="number">28</span>*<span class="number">28</span>)</span><br><span class="line">    out = net(x)</span><br><span class="line">    <span class="comment">#out: [b, 10] =&gt; pred: [b]</span></span><br><span class="line">    pred = out.argmax(dim=<span class="number">1</span>)</span><br><span class="line">    correct = pred.eq(y).<span class="built_in">sum</span>().<span class="built_in">float</span>()</span><br><span class="line">    total_correct += correct</span><br><span class="line"></span><br><span class="line">total_num = <span class="built_in">len</span>(test_loader.dataset)</span><br><span class="line">acc = total_correct / total_num</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;test acc:&#x27;</span>, acc)</span><br><span class="line"></span><br><span class="line">x, y = <span class="built_in">next</span>(<span class="built_in">iter</span>(test_loader))</span><br><span class="line">out = net(x.view(x.size(<span class="number">0</span>),<span class="number">28</span>*<span class="number">28</span>))</span><br><span class="line">pred = out.argmax(dim=<span class="number">1</span>)</span><br><span class="line">plot_image(x, pred, <span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/ClassificationAndMNIST/" data-id="cl6l23uns0002bp26aj4qdlc7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-EntropyAndCrossEntropy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/EntropyAndCrossEntropy/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.727Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/EntropyAndCrossEntropy/">An interesting understanding of Entropy and Cross Entropy</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="What-is-Entropy-What-is-Information-Entropy-What-is-the-difference-between-them"><a href="#What-is-Entropy-What-is-Information-Entropy-What-is-the-difference-between-them" class="headerlink" title="What is Entropy? What is Information Entropy? What is the difference between them?"></a>What is Entropy? What is Information Entropy? What is the difference between them?</h2><p>When learning the <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1US4t1M7g?p=48">Pytorch turorial from Bilibili</a>, the appearance of entropy and its abstract definition really confused me.</p>
+<p>Here is the answer for entropy from Encyclopedia Britannica:</p>
+<blockquote>
+<p>Entropy, the measure of a system’s thermal energy per unit temperature that is unavailable for doing useful work.</p>
+</blockquote>
+<p>Here is the answer for infromation entropy from wiki:</p>
+<blockquote>
+<p>In information theory, the entropy of a random variable is the average level of “information”, “surprise”, or “uncertainty” inherent to the variable’s possible outcomes.</p>
+</blockquote>
+<p>These definitions above may do not help at all. And the simple answer of the difference between them is that they are just the same thing in different fields.</p>
+<h2 id="Why-do-we-use-Information-Entropy"><a href="#Why-do-we-use-Information-Entropy" class="headerlink" title="Why do we use Information Entropy?"></a>Why do we use Information Entropy?</h2><p>When faced with classification problems(or sometimes logistic regression), using Information Entropy instead of final accuracy as loss is important. (though it seems like we use entropy because of the weakness of using final accuracy instead of the strength of information entropy,2022/2/21)<br>(2022/2/22, I saw the power of cross entropy in the field of classification in a <a target="_blank" rel="noopener" href="https://leaflight.github.io/2022/02/26/CNN_practice_WorkFlow/">practice of CNN work for MNIST</a>.)</p>
+<p>That is because the output of a classification model are usually a list of transformed(or cutted) probabilities(like p&gt;0.5?t=1:t=0), which means using the final accuracy will lead to some problems,such as:</p>
+<ul>
+<li>the accuracy remains unchanged when the Weights of a net work are changed.(e.g., p changed from 0.3 to 0.4, but it doesn’t help)</li>
+<li>the gradient is not continuous since the accuracy is not continuous.</li>
+</ul>
+<p>(Here I wondered that why not use MSE of p and 0 or 1 as loss, and then I learned that it does work(Actually, this method is used in <a target="_blank" rel="noopener" href="https://leaflight.github.io/2022/02/17/ClassificationAndMNIST/">the MNIST test before</a>). No one can tell which one is better than another. But it is an interesting way to understand information, and a useful way to evaluate the loss, so just go on.)</p>
+<h2 id="how-to-understand-Information-Entropy-in-a-easy-way"><a href="#how-to-understand-Information-Entropy-in-a-easy-way" class="headerlink" title="how to understand Information Entropy in a easy way?"></a>how to understand Information Entropy in a easy way?</h2><p>To understand a math definition, usually the combination of its actual math fomula and a scene leading-in will help.</p>
+<h3 id="The-math-formula-of-Information-Entropy"><a href="#The-math-formula-of-Information-Entropy" class="headerlink" title="The math formula of Information Entropy"></a>The math formula of Information Entropy</h3><p>H(p) = -sum(p.i * log(p.i))</p>
+<p>note:</p>
+<ul>
+<li>p: p.1, p.2, …, p.n</li>
+<li>the base of log can be any number when comparing the H() of different samples.</li>
+</ul>
+<h3 id="Scene-leading-in"><a href="#Scene-leading-in" class="headerlink" title="Scene leading-in"></a>Scene leading-in</h3><p>Reference: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ga41127Zu">Bilibili</a><br>Let’s imagine a scene that a dice is thrown and we don’t know the number of the up face. Here are 3 pieces of information:</p>
+<ol>
+<li>The number is larger than 0</li>
+<li>The number is larger than 3</li>
+<li>The number is larger than 5</li>
+</ol>
+<p>It is obvious that the third information is most valuable.So it is possible to compare the value of different information. But we want to evaluate the value of information by quantity. So let’s imagine another scene of a ball-number-guessing game. In this game, there are <em>n</em> balls in a box,which all have a number on it surface from 1 to n. One of them will picked out, and we need to guess the number on it, or we can to pay 1 dollar for asking for a question about whether the it is larger than a certain number. We all know dichotomy is the best way if we are willing to pay for the answer:</p>
+<ol>
+<li>When there 2 balls,we need to ask 1 time,because 2&lt;2^2</li>
+<li>When there 4 balls,we need to ask 2 times,because 4&lt;2^3</li>
+<li>When there 8 balls ,we need to ask 3 times,because 8&lt;2^4</li>
+</ol>
+<p>So if we can see the number of the ball directly, we can:</p>
+<ol>
+<li>save 1 dollar</li>
+<li>save 2 dollars</li>
+<li>save 3 dollars</li>
+</ol>
+<p>Then we learned that the value of the information about what the number of the ball is depends on the probability that we can guess it. In another way, the information’s value depends on probability we get the accurate answer without the information.</p>
+<p>And we can be more mathematical, in this scene, the value of the information can be calculated by the formula below:<br><code>value = -log2(p)</code><br>note: “2” here is the information unit</p>
+<p>We can find that the more uncertainty the information can clear, the more value the information has.</p>
+<p>But we what we need to understand is informatiom entropy, so let’s imagine anthor scene:<br>It is still a game about balls, but this time there are only a white ball and a black ball in the box.And <em>Pw</em> is the probability of picking out the white ball,while <em>Pb</em> is for the black one. We guess the ball is black. Fortunately, your friend saw the ball’s color, and he said:</p>
+<ol>
+<li>The ball is black</li>
+<li>The ball is white</li>
+</ol>
+<p>This friend’s sight is good.So in which condition, he helps us more?<br>As we learned before, we can evaluate the information’s value by quantity. So:</p>
+<ol>
+<li>-log2(Pb)</li>
+<li>-log2(Pw)<br>note:”2” here is not very important because it doesn’t matter when we just want to compare two value</li>
+</ol>
+<p>This comparison is in sense because if the <em>Pb = 0.9</em>, we can guess it by ourselve more easily, which means the information of this friend seems not very valuable.<br>Now, what is the average value of information given by this friend?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a_value = -sum(p.i*log(p.i))</span><br></pre></td></tr></table></figure>
+
+<p>Amazing, it is the formula of Entropy. The more chaos the system is, the more average value of a accurate information has, so it makes sense!</p>
+<h2 id="Cross-Entropy"><a href="#Cross-Entropy" class="headerlink" title="Cross Entropy"></a>Cross Entropy</h2><p>The same as <em>Information Entropy</em>, there is a mathematical formula and  scene leading-in for <em>Cross Entropy</em></p>
+<h3 id="Formula"><a href="#Formula" class="headerlink" title="Formula"></a>Formula</h3><p>H(p,q) = -sum(p.i * log(q.i))</p>
+<h3 id="Scene-leading-in-1"><a href="#Scene-leading-in-1" class="headerlink" title="Scene leading-in"></a>Scene leading-in</h3><p>Here we need to know that Information Entropy can be used to stand the shortest encoding length of a system.For example, To encoing a system of A,B,C,D(their probabilities are 1/2,1/4,1/8,1/8 respectively) Then the shortest average encoding length of this system is H = 1/2 * 1 + 1/4 * 2 + 1/8 * 3 + 1/8 * 3 = 1.75.<br>So if the p.i, which is given by prediction, is equal to q.i, the cross entropy is equal to entropy of q, otherwise the cross entropy will be larger than entropy.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/EntropyAndCrossEntropy/" data-id="cl6l23unt0004bp26cw1a53os" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CNN_practice_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/CNN_practice_WorkFlow/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.726Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/09/CNN_practice_WorkFlow/">CNN Practice Workflow</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>Convolution Neural Network is a widely used model all around the world. To have a more profound understanding of it and promote my programming skills with python in a class-style way, I decide to train a CNN used to recognize hand-writing numbers by <em>MNIST</em> dataset.</p>
+<h2 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h2><ol>
+<li>Loading the MNIST data into 2 sets(train, test)</li>
+<li>Building a CNN, which has a structure of <del>4 layers (2 Convolution layers, 2 fully connected layers)</del>  8 layers(4 Convolution layers, 4 linear full connected layers)</li>
+<li>Training the network by train set</li>
+<li>Choosing the parameters by validation set</li>
+<li>Testing by test set</li>
+<li>Polishing the network by some tricks(e.g., dropout, pooling, regularization)<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2>In this practice, I learned many things that wouldn’t be learned just from listenning to online courses.</li>
+<li>Figure out how <code>optim</code>, <code>nn.Sequential</code> and some other classes or functions work.</li>
+<li>Realize how vital the parameters are for the network(<em>I trained a network with the test acc. of approximately 10% with the help of a learning rate of 0.001, which made me lol</em>)</li>
+<li>It surprised me that the network’s performance was promoted much more greatly when I just change the <code>criterion</code> of loss from <code>nn.MSELoss</code> to <code>nn.CrossEntropyLoss</code>.</li>
+</ol>
+<h2 id="Something-Important"><a href="#Something-Important" class="headerlink" title="Something Important"></a>Something Important</h2><p>Before actually doing this work code by code, I thought what would impress me most will be the advantage of the CNN. When the result came out, the performance of CNN4 I trained was almost the same as the network with 4 activated linear layers. (~93%,a little higher than the old one’s ~90%)</p>
+<p>But something that I didn’t care about made this practice more interesting.Because of some mistakes, I used MSE as loss of the network instead of cross-entropy, which is recommended for classification problems. After solving the mistakes of using cross-entropy and applying it to my new network, it surprised me with its brilliant performance promotion, of which the acc. reached <strong>93%</strong> in the <strong>first</strong> epoch of training. And the final acc. after 8 epochs reached <strong>97%</strong>. It is amazing, because the network of the same structure with MSE has an acc. of about <strong>30%</strong> after the first epoch, and can <strong>rarely</strong> reach 95%.</p>
+<p>In a blog about cross entropy I wrote before I said that maybe it is just something interesting but not very important since we have MSE, which it more simple and explicit. I would have to change it right nowwwwww.</p>
+<p>It also comes to me that neural network and the mathematics behind it are not as simple as I thought before.(Obviously)</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>The codes below contains the network, along with the loading of MNIST data and the training of it.<br>Some negligiable codes are not presented here.(like <code>one_hot</code>)<br>This one used MSE as loss.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/python3</span></span><br><span class="line"><span class="comment">#-*-coding:UTF-8-*-</span></span><br><span class="line"><span class="comment">#Author:LeafLight</span></span><br><span class="line"><span class="comment">#Date: 2022-02-24</span></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn <span class="keyword">import</span> functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> MNIST_utils <span class="keyword">import</span>  one_hot</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="comment"># step1. load dataset</span></span><br><span class="line">batch_size= <span class="number">512</span></span><br><span class="line">dataset_MU = <span class="number">0.1307</span></span><br><span class="line">dataset_SIG = <span class="number">0.3081</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_loader = torch.utils.data.DataLoader(</span><br><span class="line">        torchvision.datasets.MNIST(<span class="string">&#x27;mnist.data&#x27;</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                                    transform=torchvision.transforms.Compose([</span><br><span class="line">                                        torchvision.transforms.ToTensor(),</span><br><span class="line">                                        torchvision.transforms.Normalize(</span><br><span class="line">                                            (dataset_MU,),(dataset_SIG,))</span><br><span class="line">                                        ])</span><br><span class="line">        ),</span><br><span class="line">        batch_size=batch_size, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">test_loader = torch.utils.data.DataLoader(</span><br><span class="line">        torchvision.datasets.MNIST(<span class="string">&#x27;mnist.data/&#x27;</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>,</span><br><span class="line">                                    transform=torchvision.transforms.Compose([</span><br><span class="line">                                        torchvision.transforms.ToTensor(),</span><br><span class="line">                                        torchvision.transforms.Normalize(</span><br><span class="line">                                            (dataset_MU,),(dataset_SIG,))</span><br><span class="line">                                        </span><br><span class="line">                                        ])</span><br><span class="line">        ),</span><br><span class="line">    batch_size=batch_size, shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">sample_x, sample_y = <span class="built_in">next</span>(<span class="built_in">iter</span>(train_loader))</span><br><span class="line"><span class="built_in">print</span>(sample_x.shape, sample_y.shape)</span><br><span class="line"><span class="comment">#Output[0]:torch.Size([512, 1, 28, 28]) torch.Size([512])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#step2. build network</span></span><br><span class="line"><span class="comment">############################################################</span></span><br><span class="line"><span class="comment">#&lt;&lt;&lt; network &lt;&lt;&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CNN4</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(CNN4, self).__init__()</span><br><span class="line"></span><br><span class="line">        self.model = nn.Sequential(</span><br><span class="line">                <span class="comment">#nn.BatchNorm1d(1),</span></span><br><span class="line">                nn.Conv2d(<span class="number">1</span>, <span class="number">6</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">                nn.Conv2d(<span class="number">6</span>, <span class="number">6</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>),</span><br><span class="line">                nn.Conv2d(<span class="number">6</span>, <span class="number">6</span>, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>),</span><br><span class="line">                nn.Conv2d(<span class="number">6</span>, <span class="number">1</span>, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>, padding=<span class="number">0</span>),</span><br><span class="line">                <span class="comment">#flatten process required,</span></span><br><span class="line">                <span class="comment">#nn.Flatten(start_dim=2, end_dim=3),</span></span><br><span class="line">                nn.Flatten(),</span><br><span class="line">                nn.Linear(<span class="number">784</span>, <span class="number">500</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">                nn.Linear(<span class="number">500</span>, <span class="number">400</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">                nn.Linear(<span class="number">400</span>, <span class="number">200</span>),</span><br><span class="line">                nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line">                nn.Linear(<span class="number">200</span>, <span class="number">10</span>),</span><br><span class="line">                )</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        out = self.model(x)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line">net = CNN4()</span><br><span class="line">optimizer = torch.optim.SGD(net.parameters(), lr=<span class="number">0.025</span>, momentum=<span class="number">0.8</span>)</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line"><span class="comment">#&gt;&gt;&gt; network &gt;&gt;&gt;</span></span><br><span class="line"><span class="comment">############################################################</span></span><br><span class="line"><span class="comment">#criterion = nn.CrossEntropyLoss()</span></span><br><span class="line">train_loss = []</span><br><span class="line"><span class="comment">#step3. train</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">for</span> batch_idx, (x, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):</span><br><span class="line">        <span class="comment">#x = x.view(x.size(0), 28*28)</span></span><br><span class="line">        out = net(x)</span><br><span class="line">        y_onehot = one_hot(y)</span><br><span class="line">        loss = criterion(out, y_onehot)</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        <span class="keyword">if</span> batch_idx%<span class="number">20</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;epoch: &quot;</span>, epoch,<span class="string">&quot;, batch_idx: &quot;</span>, batch_idx, <span class="string">&quot;, loss: &quot;</span>, loss.data)</span><br><span class="line">        train_loss.append(loss.item())</span><br><span class="line"></span><br><span class="line">    total_correct = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> idx,(x, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(test_loader):</span><br><span class="line">            out = net(x)</span><br><span class="line">            pred = out.argmax(dim=<span class="number">1</span>)</span><br><span class="line">            correct = pred.eq(y).<span class="built_in">sum</span>().<span class="built_in">float</span>()</span><br><span class="line">            total_correct += correct</span><br><span class="line">            <span class="keyword">if</span> idx%<span class="number">100</span> ==<span class="number">0</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;idx: &quot;</span>, idx, <span class="string">&quot;, correct: &quot;</span>, correct)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;pred/num:&quot;</span>, pred[<span class="number">0</span>], y[<span class="number">0</span>])</span><br><span class="line">    total_num = <span class="built_in">len</span>(test_loader.dataset)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;total num: &quot;</span>, total_num)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;total correct: &quot;</span>, total_correct)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test acc. :&quot;</span>, total_correct/total_num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>The one using cross-entropy is changed from the script above with modification below.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">73c73</span><br><span class="line">&lt; criterion = nn.MSELoss()</span><br><span class="line">---</span><br><span class="line">&gt; criterion = nn.CrossEntropyLoss()</span><br><span class="line">83,85c83,85</span><br><span class="line">&lt;         out = net(x)</span><br><span class="line">&lt;         y_onehot = one_hot(y)</span><br><span class="line">&lt;         loss = criterion(out, y_onehot)</span><br><span class="line">---</span><br><span class="line">&gt;         logits = net(x)</span><br><span class="line">&gt;         <span class="comment">#y_onehot = one_hot(y)</span></span><br><span class="line">&gt;         loss = criterion(logits, y)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/CNN_practice_WorkFlow/" data-id="cl6l23unr0001bp26gj6f4185" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nltk-Grammar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/04/16/nltk-Grammar/" class="article-date">
+  <time datetime="2022-04-16T13:14:59.000Z" itemprop="datePublished">2022-04-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MachineLearning/">MachineLearning</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/16/nltk-Grammar/">nltk and Grammar -- Encoding Part</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>When dealing with the recent project associated with <em>CMap</em>, an interesting neural network model called <strong>GVAE</strong> caught my attention. After learning the details of it, I tried to re-do the model and this blog is a recording in some ways and mainly about the <em>Grammar</em> part.</p>
+<h2 id="Grammar-–-Context-Free-Grammar-CFG"><a href="#Grammar-–-Context-Free-Grammar-CFG" class="headerlink" title="Grammar – Context-Free Grammar(CFG)"></a>Grammar – Context-Free Grammar(CFG)</h2><p>The key feature of GVAE is <strong>CFG</strong>, which can be manipulated easily by the python module <code>nltk</code>.</p>
+<ol>
+<li><p>Generate a <code>CFG</code> object from string</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> nltk</span><br><span class="line"><span class="keyword">from</span> nltk <span class="keyword">import</span> CFG</span><br><span class="line"></span><br><span class="line">SMILEsGrammar = CFG.fromstring(</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    smiles -&gt; chain</span></span><br><span class="line"><span class="string">    atom -&gt; bracket_atom | aliphatic_organic | aromatic_organic</span></span><br><span class="line"><span class="string">    aliphatic_organic -&gt; &#x27;B&#x27; | &#x27;C&#x27; | &#x27;N&#x27; | &#x27;O&#x27; | &#x27;S&#x27; | &#x27;P&#x27; | &#x27;F&#x27; | &#x27;I&#x27; | &#x27;Cl&#x27; | &#x27;Br&#x27;</span></span><br><span class="line"><span class="string">    aromatic_organic -&gt; &#x27;[&#x27; BAI &#x27;]&#x27;</span></span><br><span class="line"><span class="string">    BAI -&gt; isotope symbol BAC | symbol BAC | isotope symbol | symbol</span></span><br><span class="line"><span class="string">    BAC -&gt; chiral BAH | BAH | chiral</span></span><br><span class="line"><span class="string">    BAH -&gt; hcount BACH | BACH | hcount</span></span><br><span class="line"><span class="string">    BACH -&gt; charge class | charge | class</span></span><br><span class="line"><span class="string">    symbol -&gt; aliphatic_organic | aromatic_organic</span></span><br><span class="line"><span class="string">    isotope -&gt; DIGIT | DIGIT DIGIT | DIGIT DIGIT DIGIT</span></span><br><span class="line"><span class="string">    DIGIT -&gt; &#x27;1&#x27; | &#x27;2&#x27; | &#x27;3&#x27; | &#x27;4&#x27; | &#x27;5&#x27; | &#x27;6&#x27; | &#x27;7&#x27; | &#x27;8&#x27;</span></span><br><span class="line"><span class="string">    chiral -&gt; &#x27;@&#x27; | &#x27;@@&#x27;</span></span><br><span class="line"><span class="string">    hcount -&gt; &#x27;H&#x27; | &#x27;H&#x27; DIGIT</span></span><br><span class="line"><span class="string">    charge -&gt; &#x27;-&#x27; | &#x27;-&#x27; DIGIT | &#x27;-&#x27; DIGIT DIGIT | &#x27;+&#x27; | &#x27;+&#x27; DIGIT | &#x27;+&#x27; DIGIT DIGIT</span></span><br><span class="line"><span class="string">    bond -&gt; &#x27;-&#x27; | &#x27;=&#x27; | &#x27;#&#x27; | &#x27;/&#x27; | &#x27;\\&#x27;</span></span><br><span class="line"><span class="string">    ringbond -&gt; DIGIT | bond DIGIT</span></span><br><span class="line"><span class="string">    branched_atom -&gt; atom | atom RB | atom BB | atom RB BB</span></span><br><span class="line"><span class="string">    RB -&gt; RB ringbond | ringbond</span></span><br><span class="line"><span class="string">    BB -&gt; BB branch | branch</span></span><br><span class="line"><span class="string">    branch -&gt; &#x27;(&#x27; chain &#x27;)&#x27; | &#x27;(&#x27; bond chain &#x27;)&#x27;</span></span><br><span class="line"><span class="string">    chain -&gt; branched_atom | chain branched_atom | chain bond branched_atom</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>Generate a parse tree of a molecule in the form of SMILEs</p>
+<ol>
+<li>Get a tokenizer<br> Since some leaves in the grammar has more than one charactor(like “Cl” or “Br”), default tokenizer may result in errors. <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_zinc_tokenizer</span>(<span class="params">cfg</span>):</span></span><br><span class="line">    <span class="comment"># get all the long tokens for the following replacement work</span></span><br><span class="line">    <span class="comment"># long tokens: tokens with more than one charactor, like &#x27;Br&#x27;</span></span><br><span class="line">    long_tokens = [a <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">list</span>(SMILEsGrammar._lexical_index.keys()) <span class="keyword">if</span> xlength(a) &gt; <span class="number">1</span>]</span><br><span class="line">    <span class="comment"># char used for replacements of &#x27;Cl&#x27;, &#x27;Br&#x27;, &#x27;@@&#x27;</span></span><br><span class="line">    replacements = [<span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;%&#x27;</span>, <span class="string">&#x27;^&#x27;</span>]</span><br><span class="line">    <span class="comment"># ensure that we have  paired origin tokens and their replacements</span></span><br><span class="line">    <span class="keyword">assert</span> xlength(long_tokens) == <span class="built_in">len</span>(replacements)</span><br><span class="line">    <span class="comment"># ensure that all the tokens for replacement is available: not in the origin dict of grammar</span></span><br><span class="line">    <span class="keyword">for</span> token <span class="keyword">in</span> replacements:</span><br><span class="line">        <span class="keyword">assert</span> token <span class="keyword">not</span> <span class="keyword">in</span> cfg._lexical_index</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the func to return</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tokenize</span>(<span class="params">smiles</span>):</span></span><br><span class="line">        <span class="comment"># replace all the long_tokens in the input SMILEs</span></span><br><span class="line">        <span class="keyword">for</span> i, token <span class="keyword">in</span> <span class="built_in">enumerate</span>(long_tokens):</span><br><span class="line">            smiles = smiles.replace(token, replacements[i])</span><br><span class="line">        <span class="comment"># the result variable init</span></span><br><span class="line">        tokens = []</span><br><span class="line">        <span class="keyword">for</span> token <span class="keyword">in</span> smiles:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># try to find the replaced elements&#x27; index and append the original elements </span></span><br><span class="line">                ix = replacements.index(token)</span><br><span class="line">                tokens.append(long_tokens[ix])</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                tokens.append(token)</span><br><span class="line">        <span class="keyword">return</span> tokens</span><br><span class="line">    <span class="keyword">return</span> tokenize</span><br></pre></td></tr></table></figure></li>
+<li>tokenize the SMILEs string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">smi = <span class="string">&quot;CC1=CC(=O)C2=C(O1)C=C3C(=C2OC)C=CO3&quot;</span></span><br><span class="line">SMILEs_tokenizer = get_zinc_tokenizer(SMILEsGrammar)</span><br><span class="line">smi_t = SMILEs_tokenizer(smi)</span><br></pre></td></tr></table></figure></li>
+<li>generate the parse tree of the given SMILEs string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SMILEs_parser = nltk.ChartParser(SMILEsGrammar)</span><br><span class="line">smi_s = <span class="built_in">next</span>(SMILEs_parser.parse(smi_t))</span><br><span class="line"><span class="built_in">type</span>(smi_s)</span><br><span class="line"><span class="comment"># nltk.tree.tree.Tree</span></span><br></pre></td></tr></table></figure></li>
+<li>regenerate the SMILEs from the tree<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;</span>.join(smi_s.leaves()</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Get the productions-index map dict for one-hot encode</p>
+<ol>
+<li>productions of the parse tree<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smi_s.productions()</span><br></pre></td></tr></table></figure></li>
+<li>productions-index map dict<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Prod_map = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> ix, prod <span class="keyword">in</span> <span class="built_in">enumerate</span>(SMILEsGrammar.productions()):</span><br><span class="line">	Prod_map[prod] = ix</span><br></pre></td></tr></table></figure></li>
+<li>one-hot encoding<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># a batch of smiles strings as example</span></span><br><span class="line">smiles = <span class="string">&quot;here is a list of smiles&quot;</span></span><br><span class="line"></span><br><span class="line">smiles_t = <span class="built_in">map</span>(SMILEs_tokenizer, smiles)</span><br><span class="line"></span><br><span class="line">smiles_parse_trees = []</span><br><span class="line"><span class="keyword">for</span> i, t <span class="keyword">in</span> <span class="built_in">enumerate</span>(smiles_t):</span><br><span class="line">	smiles_parse_trees[i] = SMILEs_parser.parse(t)</span><br><span class="line"></span><br><span class="line">productions_seq = [tree.productions() <span class="keyword">for</span> tree <span class="keyword">in</span> smiles_parse_trees]</span><br><span class="line"></span><br><span class="line">indices = [np.array([Prod_map[prod] <span class="keyword">for</span> prod <span class="keyword">in</span> entry], dtype=<span class="built_in">int</span>) <span class="keyword">for</span> entry <span class="keyword">in</span> productions_seq]</span><br><span class="line"></span><br><span class="line">MAX_LEN = <span class="number">277</span></span><br><span class="line">n_char = <span class="built_in">len</span>(SMILEsGrammar.productions())</span><br><span class="line"></span><br><span class="line"><span class="comment"># init </span></span><br><span class="line">one_hot = np.zeros((<span class="built_in">len</span>(indices), MAX_LEN, n_char),dtype=np.float32)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(indices)):</span><br><span class="line">	num_productions = <span class="built_in">len</span>(indices[i])</span><br><span class="line">	<span class="keyword">if</span> num_productions &gt; MAX_LEN:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Too Large molecule, out of range&quot;</span>)</span><br><span class="line">		one_hot[i][np.arange(MAX_LEN), indices[i][:MAX_LEN]] = <span class="number">1</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		one_hot[i][np.arange(num_productions), indices[i]] = <span class="number">1</span></span><br><span class="line">		one_hot[i][np.arange(num_productions, MAX_LEN, -<span class="number">1</span>)] = <span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/16/nltk-Grammar/" data-id="cl6l23unx000jbp266s2ra4s2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

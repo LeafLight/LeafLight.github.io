@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Custom Dataset--Pokemon dataset loading by Pytorch | LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ReferenceMethod and Data from:Bilibili Online Course of Pytorch by Liangqu Long-p99 AbstractIn the practice of kinds of neural networks before, data used to train the networks is provided by “MNIST” o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Custom Dataset--Pokemon dataset loading by Pytorch">
+<meta property="og:url" content="http://example.com/2022/08/09/Pokemon_dataset_load_WorkFlow/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="ReferenceMethod and Data from:Bilibili Online Course of Pytorch by Liangqu Long-p99 AbstractIn the practice of kinds of neural networks before, data used to train the networks is provided by “MNIST” o">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-08T17:51:44.728Z">
+<meta property="article:modified_time" content="2022-08-08T17:51:44.728Z">
+<meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="Pokemon">
+<meta property="article:tag" content="Dataset">
+<meta property="article:tag" content="WorkFlow">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Pokemon_dataset_load_WorkFlow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.728Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Custom Dataset--Pokemon dataset loading by Pytorch
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Method and Data from:<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fT4y1d7av?p=99">Bilibili Online Course of Pytorch by Liangqu Long-p99</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>In the practice of kinds of neural networks before, data used to train the networks is provided by “MNIST” or “CIFAR” and so on, which can be loaded by pytorch easily. The convenice of loading results from the powerful pytorch utilities.</p>
+<p>But more often than not, we need to use our own dataset, which means there isn’t any completed utilities provided by pytorch utilities.</p>
+<p>Some might say that we can load the data by our own scripts, which just needs to do the work of dataloading, shuffling, train-val-test slicing, batch seperation and so on.(In my recent work about SMILEs, I used this ‘mannual’ method.)</p>
+<p>To the data that restored in one single file like a csv file, it is easy. But when the data structure is more complex like images which are restored in differnt files in different filefold, the ‘manual’ way may be a little troublesome.</p>
+<p>Fortunately, Pytorch provides a useful <code>class</code> called <code>Dataset</code> used to load the data.</p>
+<h2 id="torch-utils-data-Dataset"><a href="#torch-utils-data-Dataset" class="headerlink" title="torch.utils.data.Dataset"></a>torch.utils.data.Dataset</h2><p>Just like <code>torchvision.datasets.MNIST</code> or some other datasets supported by Pytorch, the dataset we used can satisfy most of the functions we need only if we create a class inheriting from <code>torch.utils.data.Dataset</code> for it.</p>
+<p>Let’s use the dataset of Pokemon as example, which has a structure of:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pokemon(Filefold)-------|- Pokemon1 ----|-picture1.jpg</span><br><span class="line">			|		|-picture2.png</span><br><span class="line">			|		|-...</span><br><span class="line">			|</span><br><span class="line">			|- Pokemon2</span><br><span class="line">			|- Pokemon3</span><br><span class="line">			|- ...</span><br></pre></td></tr></table></figure>
+
+<p>Import:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> csv</span><br></pre></td></tr></table></figure>
+
+<h3 id="Inherit-from-Dataset"><a href="#Inherit-from-Dataset" class="headerlink" title="Inherit from Dataset"></a>Inherit from <code>Dataset</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pokemon</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, root, resize, mode</span>):</span></span><br><span class="line">		<span class="built_in">super</span>(Pokemon, self).__init__()</span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self,</span>):</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self</span>):</span></span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>In the codes above, three methods of the class <code>Pokemon</code> were defined. They are the methods that are necessary to realize. The explanation of them:</p>
+<ol>
+<li><code>__init__</code>: Some initialization work</li>
+<li><code>__len__</code>: return the length of the dataset</li>
+<li><code>__getitem__</code>: return the item of specific index from the dataset</li>
+</ol>
+<h3 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h3><p>To realize <code>__len__</code> and <code>__getitem__</code> easily, proper initialization is important. And we need to realize some simple options when initialization. You may notice there are some parameters in the codes above like <code>root</code>. Here are their explanation:</p>
+<ol>
+<li><p><code>root</code>: the root dir of the dataset</p>
+</li>
+<li><p><code>resize</code>: the size to transform the image in the dataset into</p>
+</li>
+<li><p><code>mode</code>: ‘train’, ‘val’ or ‘test’</p>
+</li>
+<li><p>self.xxx</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init___</span>(<span class="params">self, root, resize, mode</span>):</span></span><br><span class="line">	<span class="built_in">super</span>(Pokemon, self).__init__()</span><br><span class="line">	self.root = root</span><br><span class="line">	self.resize = resize</span><br><span class="line">	self.mode = mode</span><br><span class="line"></span><br><span class="line">	self.name2label = &#123;&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>self.name2label</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># a dict used to store the mapping of name and label</span></span><br><span class="line">self.name2label = &#123;&#125;</span><br><span class="line"><span class="comment"># loop to fill the mapping</span></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> <span class="built_in">sorted</span>(os.listdir(os.path.join(root))):</span><br><span class="line">	<span class="comment"># skip the non-filefold file</span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(os.path.join(root, name)):</span><br><span class="line">		<span class="keyword">continue</span></span><br><span class="line">	self.name2label[name] = <span class="built_in">len</span>(self.name2label.keys())</span><br><span class="line">	<span class="comment"># label one by one</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>load the (image, label) pairs</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="comment">#lable one by one</span></span><br><span class="line">self.images, self.labels = self.load_csv(<span class="string">&#x27;images.csv&#x27;</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><code>self.load_csv</code> is a auxiliary method</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_csv</span>(<span class="params">self, filename</span>):</span></span><br><span class="line">	<span class="comment">#load all the images directly may abuse the cpu</span></span><br><span class="line">	<span class="comment">#loop over all the types and load their image_path one by one</span></span><br><span class="line">	<span class="comment">#create the csv if not existing</span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(os.path.join(self.root, filename)):</span><br><span class="line">		images = []</span><br><span class="line">		<span class="keyword">for</span> name <span class="keyword">in</span> self.name2label.keys():</span><br><span class="line">			images += glob.glob(os.path(self.root, name, <span class="string">&quot;*.png&quot;</span>))</span><br><span class="line">			images += glob.glob(os.path(self.root, name, <span class="string">&quot;*.jpg&quot;</span>))</span><br><span class="line">			images += glob.glob(os.path(self.root, name, <span class="string">&quot;*.jpeg&quot;</span>))</span><br><span class="line">		<span class="comment"># len: 1167, &#x27;/pokemon\\bulbasaur\\0000000.png&#x27;</span></span><br><span class="line">		<span class="comment"># write to the csv file</span></span><br><span class="line">		<span class="comment"># shuffle the images</span></span><br><span class="line">		random.shuffle(images)</span><br><span class="line">		<span class="comment"># weite to the csv file</span></span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(self.root, filename), mode=<span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">			writer = csv.writer(f)</span><br><span class="line">			label = self.name2label[name]</span><br><span class="line">			<span class="comment"># &#x27;pokemon\\bulbasaur\\00000.png&#x27;, 0</span></span><br><span class="line">			writer.writerow([img, label])</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;write into csv file:&quot;</span>, filename)</span><br><span class="line">	images, labels = [], []</span><br><span class="line">	<span class="comment"># read the csv if it exists</span></span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(self.root, filename)) <span class="keyword">as</span> f:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;read the csv file:&quot;</span>, filename)</span><br><span class="line">		reader = csv.reader()</span><br><span class="line">		<span class="keyword">for</span> row <span class="keyword">in</span> reader:</span><br><span class="line">			img, label = row</span><br><span class="line">			label = <span class="built_in">int</span>(label)</span><br><span class="line">			image.append(img)</span><br><span class="line">			labels.append(label)</span><br><span class="line">	<span class="keyword">assert</span> <span class="built_in">len</span>(images) == <span class="built_in">len</span>(labels)</span><br><span class="line">	<span class="keyword">return</span> images, labels</span><br></pre></td></tr></table></figure>
+<p>In the codes above, the feature of shuffling is realized by <code>random.shuffle(images)</code> easily. It is because of the fact that the labels are contained in the path of the images. In other cases, in which images and labels are seperated, <code>zip()</code> or randomize the index may solve the problem.</p>
+</li>
+<li><p>length of the data</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(self.images)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li><p>get the item</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, idx</span>):</span></span><br><span class="line"><span class="comment"># idx: 0~len(images)</span></span><br><span class="line"><span class="comment"># self.images, self.labels</span></span><br><span class="line">img, label = self.images[idx], self.labels[idx]</span><br><span class="line"></span><br><span class="line">tf = transforms.Compose([</span><br><span class="line">	<span class="keyword">lambda</span> x : Image.<span class="built_in">open</span>(x).convert(<span class="string">&#x27;RGB&#x27;</span>), <span class="comment">#img path =&gt; data</span></span><br><span class="line">	transforms.Resize((<span class="built_in">int</span>(self.resize*<span class="number">1.25</span>), <span class="built_in">int</span>(self.resize*<span class="number">1.25</span>))),</span><br><span class="line">	transforms.RandomRotation(<span class="number">15</span>),</span><br><span class="line">	transforms.CenterCrop(self.resize),</span><br><span class="line">	transforms.ToTensor(),</span><br><span class="line">	transforms.Normalize(mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], </span><br><span class="line">                                       std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">img = tf(img)</span><br><span class="line">label = torch.tensor(label)</span><br><span class="line"><span class="keyword">return</span> img, label</span><br></pre></td></tr></table></figure></li>
+<li><p>to visualize</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">denormalize</span>(<span class="params">self, x_hat</span>):</span></span><br><span class="line">	<span class="comment"># denormalize for  visualization</span></span><br><span class="line">	mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>]</span><br><span class="line">	std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># x_hat= (x - mean)/std</span></span><br><span class="line">	<span class="comment"># x = x_hat * std + mean</span></span><br><span class="line">	<span class="comment"># x: [c, h, w]</span></span><br><span class="line">	<span class="comment"># mean: [3] =&gt; [3, 1, 1]</span></span><br><span class="line">	mean = torch.tensor(mean).unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">	std = torch.tensor(std).unsqueeze(<span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	x = x_hat * std + mean</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> x</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/Pokemon_dataset_load_WorkFlow/" data-id="cl6l23unu0009bp2666gh61z8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Himmelblau Function -- Optimization Practice
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/08/09/PythonNote/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python Learning Note</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

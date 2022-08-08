@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>An interesting understanding of Entropy and Cross Entropy | LeafLight&#39;s Blog by Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What is Entropy? What is Information Entropy? What is the difference between them?When learning the Pytorch turorial from Bilibili, the appearance of entropy and its abstract definition really confuse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="An interesting understanding of Entropy and Cross Entropy">
+<meta property="og:url" content="http://example.com/2022/08/09/EntropyAndCrossEntropy/index.html">
+<meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="What is Entropy? What is Information Entropy? What is the difference between them?When learning the Pytorch turorial from Bilibili, the appearance of entropy and its abstract definition really confuse">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-08T17:51:44.727Z">
+<meta property="article:modified_time" content="2022-08-08T17:51:44.727Z">
+<meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="machine learning">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="Entropy">
+<meta property="article:tag" content="Information theory">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LeafLight&#39;s Blog by Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-EntropyAndCrossEntropy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/09/EntropyAndCrossEntropy/" class="article-date">
+  <time datetime="2022-08-08T17:51:44.727Z" itemprop="datePublished">2022-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      An interesting understanding of Entropy and Cross Entropy
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="What-is-Entropy-What-is-Information-Entropy-What-is-the-difference-between-them"><a href="#What-is-Entropy-What-is-Information-Entropy-What-is-the-difference-between-them" class="headerlink" title="What is Entropy? What is Information Entropy? What is the difference between them?"></a>What is Entropy? What is Information Entropy? What is the difference between them?</h2><p>When learning the <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1US4t1M7g?p=48">Pytorch turorial from Bilibili</a>, the appearance of entropy and its abstract definition really confused me.</p>
+<p>Here is the answer for entropy from Encyclopedia Britannica:</p>
+<blockquote>
+<p>Entropy, the measure of a system’s thermal energy per unit temperature that is unavailable for doing useful work.</p>
+</blockquote>
+<p>Here is the answer for infromation entropy from wiki:</p>
+<blockquote>
+<p>In information theory, the entropy of a random variable is the average level of “information”, “surprise”, or “uncertainty” inherent to the variable’s possible outcomes.</p>
+</blockquote>
+<p>These definitions above may do not help at all. And the simple answer of the difference between them is that they are just the same thing in different fields.</p>
+<h2 id="Why-do-we-use-Information-Entropy"><a href="#Why-do-we-use-Information-Entropy" class="headerlink" title="Why do we use Information Entropy?"></a>Why do we use Information Entropy?</h2><p>When faced with classification problems(or sometimes logistic regression), using Information Entropy instead of final accuracy as loss is important. (though it seems like we use entropy because of the weakness of using final accuracy instead of the strength of information entropy,2022/2/21)<br>(2022/2/22, I saw the power of cross entropy in the field of classification in a <a target="_blank" rel="noopener" href="https://leaflight.github.io/2022/02/26/CNN_practice_WorkFlow/">practice of CNN work for MNIST</a>.)</p>
+<p>That is because the output of a classification model are usually a list of transformed(or cutted) probabilities(like p&gt;0.5?t=1:t=0), which means using the final accuracy will lead to some problems,such as:</p>
+<ul>
+<li>the accuracy remains unchanged when the Weights of a net work are changed.(e.g., p changed from 0.3 to 0.4, but it doesn’t help)</li>
+<li>the gradient is not continuous since the accuracy is not continuous.</li>
+</ul>
+<p>(Here I wondered that why not use MSE of p and 0 or 1 as loss, and then I learned that it does work(Actually, this method is used in <a target="_blank" rel="noopener" href="https://leaflight.github.io/2022/02/17/ClassificationAndMNIST/">the MNIST test before</a>). No one can tell which one is better than another. But it is an interesting way to understand information, and a useful way to evaluate the loss, so just go on.)</p>
+<h2 id="how-to-understand-Information-Entropy-in-a-easy-way"><a href="#how-to-understand-Information-Entropy-in-a-easy-way" class="headerlink" title="how to understand Information Entropy in a easy way?"></a>how to understand Information Entropy in a easy way?</h2><p>To understand a math definition, usually the combination of its actual math fomula and a scene leading-in will help.</p>
+<h3 id="The-math-formula-of-Information-Entropy"><a href="#The-math-formula-of-Information-Entropy" class="headerlink" title="The math formula of Information Entropy"></a>The math formula of Information Entropy</h3><p>H(p) = -sum(p.i * log(p.i))</p>
+<p>note:</p>
+<ul>
+<li>p: p.1, p.2, …, p.n</li>
+<li>the base of log can be any number when comparing the H() of different samples.</li>
+</ul>
+<h3 id="Scene-leading-in"><a href="#Scene-leading-in" class="headerlink" title="Scene leading-in"></a>Scene leading-in</h3><p>Reference: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ga41127Zu">Bilibili</a><br>Let’s imagine a scene that a dice is thrown and we don’t know the number of the up face. Here are 3 pieces of information:</p>
+<ol>
+<li>The number is larger than 0</li>
+<li>The number is larger than 3</li>
+<li>The number is larger than 5</li>
+</ol>
+<p>It is obvious that the third information is most valuable.So it is possible to compare the value of different information. But we want to evaluate the value of information by quantity. So let’s imagine another scene of a ball-number-guessing game. In this game, there are <em>n</em> balls in a box,which all have a number on it surface from 1 to n. One of them will picked out, and we need to guess the number on it, or we can to pay 1 dollar for asking for a question about whether the it is larger than a certain number. We all know dichotomy is the best way if we are willing to pay for the answer:</p>
+<ol>
+<li>When there 2 balls,we need to ask 1 time,because 2&lt;2^2</li>
+<li>When there 4 balls,we need to ask 2 times,because 4&lt;2^3</li>
+<li>When there 8 balls ,we need to ask 3 times,because 8&lt;2^4</li>
+</ol>
+<p>So if we can see the number of the ball directly, we can:</p>
+<ol>
+<li>save 1 dollar</li>
+<li>save 2 dollars</li>
+<li>save 3 dollars</li>
+</ol>
+<p>Then we learned that the value of the information about what the number of the ball is depends on the probability that we can guess it. In another way, the information’s value depends on probability we get the accurate answer without the information.</p>
+<p>And we can be more mathematical, in this scene, the value of the information can be calculated by the formula below:<br><code>value = -log2(p)</code><br>note: “2” here is the information unit</p>
+<p>We can find that the more uncertainty the information can clear, the more value the information has.</p>
+<p>But we what we need to understand is informatiom entropy, so let’s imagine anthor scene:<br>It is still a game about balls, but this time there are only a white ball and a black ball in the box.And <em>Pw</em> is the probability of picking out the white ball,while <em>Pb</em> is for the black one. We guess the ball is black. Fortunately, your friend saw the ball’s color, and he said:</p>
+<ol>
+<li>The ball is black</li>
+<li>The ball is white</li>
+</ol>
+<p>This friend’s sight is good.So in which condition, he helps us more?<br>As we learned before, we can evaluate the information’s value by quantity. So:</p>
+<ol>
+<li>-log2(Pb)</li>
+<li>-log2(Pw)<br>note:”2” here is not very important because it doesn’t matter when we just want to compare two value</li>
+</ol>
+<p>This comparison is in sense because if the <em>Pb = 0.9</em>, we can guess it by ourselve more easily, which means the information of this friend seems not very valuable.<br>Now, what is the average value of information given by this friend?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a_value = -sum(p.i*log(p.i))</span><br></pre></td></tr></table></figure>
+
+<p>Amazing, it is the formula of Entropy. The more chaos the system is, the more average value of a accurate information has, so it makes sense!</p>
+<h2 id="Cross-Entropy"><a href="#Cross-Entropy" class="headerlink" title="Cross Entropy"></a>Cross Entropy</h2><p>The same as <em>Information Entropy</em>, there is a mathematical formula and  scene leading-in for <em>Cross Entropy</em></p>
+<h3 id="Formula"><a href="#Formula" class="headerlink" title="Formula"></a>Formula</h3><p>H(p,q) = -sum(p.i * log(q.i))</p>
+<h3 id="Scene-leading-in-1"><a href="#Scene-leading-in-1" class="headerlink" title="Scene leading-in"></a>Scene leading-in</h3><p>Here we need to know that Information Entropy can be used to stand the shortest encoding length of a system.For example, To encoing a system of A,B,C,D(their probabilities are 1/2,1/4,1/8,1/8 respectively) Then the shortest average encoding length of this system is H = 1/2 * 1 + 1/4 * 2 + 1/8 * 3 + 1/8 * 3 = 1.75.<br>So if the p.i, which is given by prediction, is equal to q.i, the cross entropy is equal to entropy of q, otherwise the cross entropy will be larger than entropy.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/09/EntropyAndCrossEntropy/" data-id="cl6l23unt0004bp26cw1a53os" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/09/ClassificationAndMNIST/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Classification and MNIST dataset
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/08/09/CNN_practice_WorkFlow/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CNN Practice Workflow</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CMap/" rel="tag">CMap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dataset/" rel="tag">Dataset</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/" rel="tag">Entropy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GrammarVAE/" rel="tag">GrammarVAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Himmelblau-Function/" rel="tag">Himmelblau Function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-theory/" rel="tag">Information theory</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MNIST/" rel="tag">MNIST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neural-Network/" rel="tag">Neural Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Note/" rel="tag">Note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Optimization/" rel="tag">Optimization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PLAN/" rel="tag">PLAN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pokemon/" rel="tag">Pokemon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Practice/" rel="tag">Practice</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/" rel="tag">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Source-Code/" rel="tag">Source Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WorkFlow/" rel="tag">WorkFlow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/functools/" rel="tag">functools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/" rel="tag">hello world</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambdaFunction/" rel="tag">lambdaFunction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/" rel="tag">machine learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/molecules/" rel="tag">molecules</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nltk/" rel="tag">nltk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/" rel="tag">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/structure-learning/" rel="tag">structure learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/study-note/" rel="tag">study note</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CMap/" style="font-size: 10px;">CMap</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Dataset/" style="font-size: 10px;">Dataset</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/GrammarVAE/" style="font-size: 10px;">GrammarVAE</a> <a href="/tags/Himmelblau-Function/" style="font-size: 10px;">Himmelblau Function</a> <a href="/tags/Information-theory/" style="font-size: 10px;">Information theory</a> <a href="/tags/MNIST/" style="font-size: 10px;">MNIST</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/MachineLearning/" style="font-size: 15px;">MachineLearning</a> <a href="/tags/Neural-Network/" style="font-size: 10px;">Neural Network</a> <a href="/tags/Note/" style="font-size: 15px;">Note</a> <a href="/tags/Optimization/" style="font-size: 10px;">Optimization</a> <a href="/tags/PLAN/" style="font-size: 10px;">PLAN</a> <a href="/tags/Pokemon/" style="font-size: 10px;">Pokemon</a> <a href="/tags/Practice/" style="font-size: 15px;">Practice</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Pytorch/" style="font-size: 15px;">Pytorch</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Source-Code/" style="font-size: 10px;">Source Code</a> <a href="/tags/Transformer/" style="font-size: 10px;">Transformer</a> <a href="/tags/WorkFlow/" style="font-size: 10px;">WorkFlow</a> <a href="/tags/Workflow/" style="font-size: 15px;">Workflow</a> <a href="/tags/functools/" style="font-size: 10px;">functools</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/lambdaFunction/" style="font-size: 10px;">lambdaFunction</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/machine-learning/" style="font-size: 20px;">machine learning</a> <a href="/tags/molecules/" style="font-size: 10px;">molecules</a> <a href="/tags/nltk/" style="font-size: 10px;">nltk</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/structure-learning/" style="font-size: 10px;">structure learning</a> <a href="/tags/study-note/" style="font-size: 10px;">study note</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">February 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/09/HimmelblauOptimization_Practice_WorkFlow/">Himmelblau Function -- Optimization Practice</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Pokemon_dataset_load_WorkFlow/">Custom Dataset--Pokemon dataset loading by Pytorch</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/PythonNote/">Python Learning Note</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/RNN_practice_WorkFlow/">RNN practice workflow(Pytorch)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/09/Transformer_learning/">A deeper insight into the training of Transformer Autoencoder</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 LeafLight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
