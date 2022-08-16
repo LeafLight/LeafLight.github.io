@@ -5,14 +5,21 @@
   
 
   
-  <title>Archives: 2022/2 | LeafLight&#39;s Blog by Hexo</title>
+  <title>[Pytorch] Some useful utilities | LeafLight&#39;s Blog by Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafLight&#39;s Blog by Hexo">
-<meta property="og:url" content="http://example.com/archives/2022/02/index.html">
+  <meta name="description" content="ReferencePytorch Doc BackgroundI tried to improve my project BiGCAT by doing dataset split today,and when looking up the official documents for the instruction of using torch.utils.data.random_split()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Pytorch] Some useful utilities">
+<meta property="og:url" content="http://example.com/2022/08/16/Pytorch-some-useful-utilities/index.html">
 <meta property="og:site_name" content="LeafLight&#39;s Blog by Hexo">
+<meta property="og:description" content="ReferencePytorch Doc BackgroundI tried to improve my project BiGCAT by doing dataset split today,and when looking up the official documents for the instruction of using torch.utils.data.random_split()">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-16T10:23:52.000Z">
+<meta property="article:modified_time" content="2022-08-16T16:20:14.972Z">
 <meta property="article:author" content="LeafLight">
+<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="MachineLearning">
+<meta property="article:tag" content="Utilities">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="LeafLight&#39;s Blog by Hexo" type="application/atom+xml">
@@ -62,40 +69,85 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/" class="archive-article-date">
-  <time datetime="2022-02-07T05:51:05.000Z" itemprop="datePublished">Feb 7</time>
+        <section id="main"><article id="post-Pytorch-some-useful-utilities" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/16/Pytorch-some-useful-utilities/" class="article-date">
+  <time datetime="2022-08-16T10:23:52.000Z" itemprop="datePublished">2022-08-16</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/07/sharement-of-paremeters-between-shell-scripts/">sharement of paremeters between shell scripts</a>
+    <h1 class="article-title" itemprop="name">
+      [Pytorch] Some useful utilities
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/data.html#torch.utils.data.random_split">Pytorch Doc</a></p>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>I tried to improve my project <em>BiGCAT</em> by doing dataset split today,and when looking up the official documents for the instruction of using <code>torch.utils.data.random_split()</code>, other utilities provided in the same page with it  caught my eyes.</p>
+<h2 id="Useful-Utilities"><a href="#Useful-Utilities" class="headerlink" title="Useful Utilities"></a>Useful Utilities</h2><h3 id="Dataset-Types"><a href="#Dataset-Types" class="headerlink" title="Dataset Types"></a>Dataset Types</h3><p>Other than the type I have known before(<em>map-style dataset</em>), here is another one tyep of <code>Dataset</code>.</p>
+<ol>
+<li><strong>Map-style dataset</strong>: Implements of  <code>__len__()</code> and <code>__getitem__()</code> protocol are required. It represents a map from keys/indices to samples and can be accessed by <code>dataset[idx]</code>.</li>
+<li><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/data.html#torch.utils.data.IterableDataset"><strong>Iterable-style dataset</strong></a>: It is an instance of the subclass <code>IterableDataset</code>. We use it where random read are expensive or even improbable and where the batch size depends on the fetched data. <code>iter(dataset)</code> can return a stream of data reading from a database, a remote server or even logs generated in real time.</li>
+</ol>
+<h2 id="Working-with-collate-fn"><a href="#Working-with-collate-fn" class="headerlink" title="Working with collate_fn"></a>Working with <code>collate_fn</code></h2><p>It behaves differently when automatic batching is enabled or disabled.</p>
+<ul>
+<li>When automatic batching enabled: It simply converts every individual Numpy array to Pytorch tensors.</li>
+<li>When automatic batching disabled: It converts a list of tuples into a single tuple of tensors(of course, into tensors).</li>
+</ul>
+<blockquote>
+<p>If you run into a situation where the outputs of DataLoader have dimensions or type that is different from your expectation, you may want to check your <code>collate_fn</code>.</p>
+</blockquote>
+<p><strong>Something interesting:</strong> <code>collate_fn</code> can even help padding sequence of various length. Here is the <a target="_blank" rel="noopener" href="https://androidkt.com/create-dataloader-with-collate_fn-for-variable-length-input-in-pytorch/">instruction</a>.</p>
+<h2 id="Tensor-Dataset"><a href="#Tensor-Dataset" class="headerlink" title="Tensor Dataset"></a>Tensor Dataset</h2><p>It is convenient when the task is simple.<br>Here is an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> ds = torch.uitls.data.TensorDataset(X_train, y_train)</span><br><span class="line">train_loader = torch.utils.data.DataLoader(ds, batch_size=<span class="number">18</span>, shuffle=<span class="literal">True</span>, drop_last=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
+<h2 id="Concatenate-Datasets"><a href="#Concatenate-Datasets" class="headerlink" title="Concatenate Datasets"></a>Concatenate Datasets</h2><p>Use <code>torch.utils.data.ConcatDataset(datasets)</code>, in which <code>datasets</code> is the list of datasets to be concatenated.</p>
+<h2 id="Chain-Datasets"><a href="#Chain-Datasets" class="headerlink" title="Chain Datasets"></a>Chain Datasets</h2><p>Use <code>torch.utils.data.ChainDataset(datasets)</code>, which is just like <code>ConcatDataset()</code> above but for <strong>Iterable-style Datasets</strong>.</p>
+<h2 id="Subset-of-Dataset"><a href="#Subset-of-Dataset" class="headerlink" title="Subset of Dataset"></a>Subset of Dataset</h2><p>Use <code>torch.utils.data.Subset(dataset, indices)</code>.</p>
+<h2 id="Default-Collate"><a href="#Default-Collate" class="headerlink" title="Default Collate"></a>Default Collate</h2><p>Use <code>torch.utils.data.default_collate()</code> to do collation in the default way.</p>
+<h2 id="Split-Dataset"><a href="#Split-Dataset" class="headerlink" title="Split Dataset"></a>Split Dataset</h2><p>Use <code>torch.utils.data.random_split(dataset, length, generator=&lt;torch._C.Generator object&gt;)</code>.<br>Here is an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.utils.data.random_split(<span class="built_in">range</span>(<span class="number">0</span>, <span class="number">10</span>), [<span class="number">3</span>, <span class="number">7</span>], generator=torch.Generator().manual_seed(<span class="number">42</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>dataset</strong>: the Dateset to split</li>
+<li><strong>length</strong>: the lengths of splits to be produced</li>
+<li><strong>generator</strong>: Generator used for the random permutation.</li>
+</ul>
+<h2 id="Sampler"><a href="#Sampler" class="headerlink" title="Sampler"></a>Sampler</h2><p>The <code>DataLoader</code> we use is consisted of a <code>Dataset</code> and a <code>Sampler</code>.<br>Maybe I won’t go deep in this subclass in a short time because most of the job I do does not require me to customize a <code>DataLoader</code> in details.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/16/Pytorch-some-useful-utilities/" data-id="cl6we60hc00004ri7b9vb6l9f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MachineLearning/" rel="tag">MachineLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pytorch/" rel="tag">Pytorch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Utilities/" rel="tag">Utilities</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/08/16/Shallow-copy-and-deep-copy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Shallow copy and deep copy in Python</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
