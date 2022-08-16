@@ -1,5 +1,5 @@
 ---
-title: [Pytorch] Some useful utilities
+title: "[Pytorch] Some useful utilities"
 tags: ["MachineLearning", "Pytorch", "Utilities"]
 date: 2022-08-16 18:23:52
 ---
