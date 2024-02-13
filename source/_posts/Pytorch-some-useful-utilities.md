@@ -14,7 +14,7 @@ I tried to improve my project _BiGCAT_ by doing dataset split today,and when loo
 ## Useful Utilities
 
 ### Dataset Types
-Other than the type I have known before(_map-style dataset_), here is another one tyep of `Dataset`.
+Other than the type I have known before(_map-style dataset_), here is another one type of `Dataset`.
 
 1. __Map-style dataset__: Implements of  `__len__()` and `__getitem__()` protocol are required. It represents a map from keys/indices to samples and can be accessed by `dataset[idx]`.
 2. [__Iterable-style dataset__](https://pytorch.org/docs/stable/data.html#torch.utils.data.IterableDataset): It is an instance of the subclass `IterableDataset`. We use it where random read are expensive or even improbable and where the batch size depends on the fetched data. `iter(dataset)` can return a stream of data reading from a database, a remote server or even logs generated in real time.

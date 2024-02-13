@@ -2,6 +2,8 @@
 title: Analytic Hierarchy Process
 tags: ["MathModel", "APH"]
 date: 2022-09-02 23:04:03
+category: 
+- [Math, MathModel]
 ---
 ## What is APH
 
