@@ -1,6 +1,8 @@
 ---
 title: CNN Practice Workflow
 tags: ["CNN", "Workflow", "machine learning", "MNIST"]
+category:
+- [MachineLearning]
 ---
 
 ## Abstract

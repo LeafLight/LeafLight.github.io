@@ -1,6 +1,8 @@
 ---
 title: Custom Dataset--Pokemon dataset loading by Pytorch
 tags: ["Pytorch", "Pokemon", "Dataset", "WorkFlow"]
+category:
+- [MachineLearning]
 ---
 
 ## Reference

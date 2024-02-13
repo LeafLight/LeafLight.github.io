@@ -1,6 +1,8 @@
 ---
 title: Mathematical Theory after Variational Autoencoder
 tags: ["VAE", "MachineLearning", "Math"]
+category:
+- [MachineLearning]
 date: 2022-08-28 22:51:12
 ---
 ## Prior and Posterior Distribution of VAE

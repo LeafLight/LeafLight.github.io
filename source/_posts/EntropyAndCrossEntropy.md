@@ -1,6 +1,8 @@
 ---
 title: An interesting understanding of Entropy and Cross Entropy
 tags: ["Entropy", "machine learning", "Note", "Information theory"]
+category:
+- [MachineLearning]
 ---
 
 ## What is Entropy? What is Information Entropy? What is the difference between them?

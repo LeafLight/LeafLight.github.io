@@ -1,6 +1,8 @@
 ---
 title: Himmelblau Function -- Optimization Practice
 tags: ["Himmelblau Function", "Optimization", "Practice"]
+category:
+- [MachineLearning]
 ---
 
 ## What is Himmelbau Function?

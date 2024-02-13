@@ -1,6 +1,8 @@
 ---
 title: Lightning Learning
 tags: ["machine learning", "Pytorch", "PLAN"] 
+category:
+- [MachineLearning]
 date: 2023-12-25 14:41:03
 ---
 

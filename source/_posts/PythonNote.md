@@ -1,7 +1,13 @@
 ---
 title: Python Learning Note
 tags: ["python","note"]
+category:
+- [Python, GeneralNote]
 ---
+
+## Abstract
+This is a _General Note_ that contains trifles that I learned. And notes about specific modules or frameworks will have their own categories.
+
 ## 2022/2/6
 
 ### Execute python scripts with options and arguments

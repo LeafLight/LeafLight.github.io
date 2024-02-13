@@ -2,6 +2,8 @@
 title: GAN_learning(PLAN)
 date: 2022-01-14 14:47:22
 tags: ["structure learning", "machine learning", "PLAN"]
+category:
+- [MachineLearning]
 ---
 
 # What is GAN?
